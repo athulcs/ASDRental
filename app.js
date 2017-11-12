@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : '',
-  database : 'mydb'
+  database : 'ASDdb'
 });
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // for parsing application/json
