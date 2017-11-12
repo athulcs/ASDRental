@@ -1,0 +1,22 @@
+{
+  "name": "asdrental",
+  "version": "1.0.0",
+  "description": "Car Rental Service",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arunjayaprakash/ASDRental.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arunjayaprakash/ASDRental/issues"
+  },
+  "homepage": "https://github.com/arunjayaprakash/ASDRental#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
