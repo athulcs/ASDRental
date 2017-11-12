@@ -24,3 +24,32 @@ app.get('/',function(req,res){
     res.sendFile('index.html',{'root': __dirname + '/templates'});
 
 });
+
+app.get('/rentPage',function(req,res){
+    res.sendFile('signin.html',{'root': __dirname + '/templates'});
+});
+
+app.post('/verifyuser', function(req, res){
+  console.log('checking user in database');
+  console.log(req.body.pass);
+  var selectString = 'SELECT COUNT(email) FROM mytable1 WHERE email="'+req.body.email+'" AND pass="'+req.body.pass+'" ';
+
+  connection.query(selectString, function(err, results) {
+
+        console.log(results);
+        var string=JSON.stringify(results);
+        console.log(string);
+        //this is a walkaround of checking if the email pass combination is 1 or not it will fail if wrong pass is given
+        if (string === '[{"COUNT(email)":1}]') {
+      res.redirect('/');
+
+          }
+        if (string === '[{"COUNT(email)":0}]')  {
+          res.redirect('/showSignInPageretry');
+
+        }
+});
+
+
+
+});
