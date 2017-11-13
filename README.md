@@ -12,7 +12,7 @@ Pre-Requisites for the project
 Do npm install for all the above packages or npm install from package.json dependencies.
 
 Database details
-DB Name: Carrent
+DB Name: carrent
 DB Schema: 
 1. Open cmd prompt and type mysql user:root  pass: root
 2. Create database mydb;

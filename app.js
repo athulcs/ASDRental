@@ -6,16 +6,29 @@ var connection = mysql.createConnection({
 
   host     : 'localhost',
   user     : 'root',
-  password : 'root',
-  database : 'mydb'
+  password : '',
+  database : 'carrent'
 });
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-app.listen(3000,function(){
+var obj = [];
+
+app.listen(3000,function(req,res){
     console.log('Node server running @ http://localhost:3000')
+	 connection.query('SELECT * FROM car', function(err, result) {
+
+        if(err){
+            throw err;
+        } else {
+            obj = JSON.parse(JSON.stringify(result));
+            console.log(obj);
+           res.render('Car', { obj: obj });
+        }
+    });
 });
+
 app.use('/node_modules',  express.static(__dirname + '/node_modules'));
 //app.use('/templates/css',  express.static(__dirname + '/templates/css'));
 app.use(express.static('templates'))
