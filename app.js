@@ -24,7 +24,9 @@ app.get('/',function(req,res){
     res.sendFile('index.html',{'root': __dirname + '/templates'});
 
 });
-
+app.get('/signin',function(req,res){
+    res.sendFile('signin.html',{'root': __dirname + '/templates'});
+});
 app.get('/rentPage',function(req,res){
     res.sendFile('signin.html',{'root': __dirname + '/templates'});
 });
