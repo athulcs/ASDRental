@@ -17,7 +17,7 @@ var obj = [];
 
 app.listen(3000,function(req,res){
     console.log('Node server running @ http://localhost:3000')
-	 connection.query('SELECT * FROM car', function(err, result) {
+	 /*connection.query('SELECT * FROM car', function(err, result) {
 
         if(err){
             throw err;
@@ -25,8 +25,8 @@ app.listen(3000,function(req,res){
             obj = JSON.parse(JSON.stringify(result));
             console.log(obj);
            res.render('Car', { obj: obj });
-        }
-    });
+        }*/
+   // });
 });
 
 app.use('/node_modules',  express.static(__dirname + '/node_modules'));
