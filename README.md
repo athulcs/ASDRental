@@ -15,13 +15,13 @@ Database details
 DB Name: carrent
 DB Schema: 
 1. Open cmd prompt and type mysql user:root  pass: root
-2. Create database mydb;
-3. Use mydb;
+2. Create database carrent;
+3. Use carrent;
 4. create table Car (VID INT(11), LNo VARCHAR(10),LendID INT(11),Model VARCHAR(10),Capacity INT(11),Fuel VARCHAR(10),
    Colour VARCHAR(10),Trans VARCHAR(10),Cost INT(11));
 5. create table Rent (RentID INT(11), Name VARCHAR(20), Email VARCHAR(30), Pass VARCHAR(10), Phone INT(10),Addr VARCHAR(40),
    Duration INT(10),FCost INT(10),VID INT(11));
 6. create table Lend (LendID INT(11),Name VARCHAR(20), Email VARCHAR(30), Pass VARCHAR(10), Phone INT(10), Addr VARCHAR(40),
    VID INT(11));
-   
+7. create table login (email varchar(50),pass varchar(20));   
    

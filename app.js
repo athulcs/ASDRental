@@ -40,14 +40,19 @@ app.get('/',function(req,res){
 app.get('/signin',function(req,res){
     res.sendFile('signin.html',{'root': __dirname + '/templates'});
 });
+
 app.get('/rentPage',function(req,res){
-    res.sendFile('signin.html',{'root': __dirname + '/templates'});
+    res.sendFile('rent.html',{'root': __dirname + '/templates'});
+});
+
+app.get('/lendPage',function(req,res){
+    res.sendFile('lend.html',{'root': __dirname + '/templates'});
 });
 
 app.post('/verifyuser', function(req, res){
   console.log('checking user in database');
   console.log(req.body.pass);
-  var selectString = 'SELECT COUNT(email) FROM mytable1 WHERE email="'+req.body.email+'" AND pass="'+req.body.pass+'" ';
+  var selectString = 'SELECT COUNT(email) FROM login WHERE email="'+req.body.email+'" AND pass="'+req.body.pass+'" ';
 
   connection.query(selectString, function(err, results) {
 
@@ -56,7 +61,7 @@ app.post('/verifyuser', function(req, res){
         console.log(string);
         //this is a walkaround of checking if the email pass combination is 1 or not it will fail if wrong pass is given
         if (string === '[{"COUNT(email)":1}]') {
-      res.redirect('/');
+      res.redirect('/rentPage');
 
           }
         if (string === '[{"COUNT(email)":0}]')  {
