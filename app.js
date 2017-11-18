@@ -73,6 +73,12 @@ app.post('/verifyuser', function(req, res){
 
 });
 
+app.get('/submitRent', function(req,res){
+	console.log('Rent details input');
+	console.log(req.body.Model);
+	
+});
+
 
 // **********RENT******
 app.set('view engine', 'ejs');

@@ -70,32 +70,34 @@
                          <div id="demo" style=" width: 100%; padding-top: 50px;">
 <div style="padding-top:120px">
   <h3 style="color:floralwhite">Please choose the vehicle specifications:</h3>
-    <form>
-  <div class="form-group">   
-	<select class="custom-select">
-            <option selected>Model</option>
-            <option value="1">Sedan</option>
-            <option value="2">Hatchback</option>
-            <option value="3">SUV</option>
-            <option value="3">MUV</option>
+    <form id="rentInput" action="/submitRent" method="get">
+     <div class="form-group">   
+	 
+	  <select class="Model" name="Model">
+            <option name="" selected>Model</option>
+            <option name="val1" value="1">Sedan</option>
+            <option name="val2" value="2">Hatchback</option>
+            <option name="val3" value="3">SUV</option>
+            <option name="val4" value="4">MUV</option>
         </select>
-        <select class="custom-select">
+		 
+		<!--select class="Capacity">
             <option selected>Capacity</option>
             <option value="1">4</option>
             <option value="2">5</option>
             <option value="3">6</option>
         </select>
-        <select class="custom-select">
+        <select class="Fuel">
             <option selected>Fuel</option>
             <option value="1">Petrol</option>
             <option value="2">Diesel</option>
         </select>
-        <select class="custom-select">
+        <select class="Trans">
             <option selected>Transmission</option>
             <option value="1">Automatic</option>
             <option value="2">Manual</option>
         </select>
-        <select class="custom-select">
+        <select class="Colour">
             <option selected>Colour</option>
             <option value="1">Red</option>
             <option value="2">Black</option>
@@ -107,14 +109,16 @@
      
       <label style="color: floralwhite" for="exampleInputEmail1">Your location</label>
     <input type="address" class="form-control" id="exampleInputaddress" aria-describedby="addressHelp" placeholder="Enter address">
-	<div class="col-sm-1">
+	<div class="col-sm-1"-->
 	  <button id="btnRent" class="btn btn-sm btn-primary-outline btn-block" type="submit" style="color: white; margin-right:900px;" >Submit</button>
-	  </div>	
+	  <!--/div-->
+
+		 </form>
     <div class="col-sm-3">
     <small id="addressHelp" class="form-text text-muted" style=" font-size:17px;"> View <a href="/carDetails"> vehicle list </a></small>
 	  </div>
 		 </div>   
-    </form>
+   
     </div>
                              </div>
   <!-- Responsive table starts here -->
