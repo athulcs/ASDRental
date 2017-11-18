@@ -97,20 +97,23 @@ app.post('/submitRent', function(req,res){
 
 app.post('/lendInput', function(req, res) {
 	console.log('Lent details input');
-	//console.log(req.body);
+	console.log(req.body);
 	var record = {Name: req.body.name, Email: req.body.email, Phone: req.body.phone, Addr: req.body.addr};
+	
 	var record2 = {Model: req.body.Model, Capacity: req.body.Capacity, Fuel: req.body.Fuel, Trans: req.body.Transmission, Colour: req.body.Colour, Cost: req.body.Cost};
 
 	//connection.connect();
-	connection.query('INSERT INTO Lend SET ?', record, function(err,res){
+	connection.query('INSERT INTO lend SET ?', record, function(err,res){
 	  	if(err) throw err;
-		//console.log('Last record insert id:', res.insertId);
+		console.log('Last record insert id:', res.insertId);
 
 	});
 	
-	connection.query('INSERT INTO Car SET ?', record2, function(err,res){
+	connection.query('INSERT INTO car SET ?', record2, function(err,res){
 	  	if(err) throw err;
+	  	console.log('Last record insert id:', res.insertId);
 	});
+	
 
 //	res.redirect('/message');
 	//connection.end();

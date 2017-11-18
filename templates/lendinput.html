@@ -50,12 +50,11 @@
 					
                         <div class="menu-container">
                             <ul class="nav navbar-nav navbar-nav-right">
-                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="#body">Home</a></li>
-                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="#about">Team</a></li>
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="/">Home</a></li>
+                                
 								<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="/signin.html">Login</a></li>
-                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="#products">Products</a></li>
-								<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="#work">Credentials</a></li>
-                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="#pricing">Pricing</a></li>
+                               
+								
                                 <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="#contact">Contact</a></li>
                             </ul>
                         </div>
@@ -70,11 +69,11 @@
                         <div class="carousel-centered" style="width: 100%; padding-left: 50px; padding-right: 50px;">
 							<div class="margin-b-20" style="width: 100%;">
                          <div id="demo" style=" width: 100%; padding-top: 50px;">
-<div >
+
   <h3 style="color:floralwhite; font-family: 'Comfortaa', cursive;">Please enter the details</h3>
 
 <form action="/lendInput" method="post">
-<div class="form-group" style="font-family: 'Comfortaa', cursive;">
+    <div class="form-group" style="font-family: 'Comfortaa', cursive;">
       
       <div style="color:floralwhite">
         <label for="fname" class="ok">Full Name:</label>
@@ -89,41 +88,40 @@
       <br><br>
       <div>
       
-      <label for="Address" style="float:left; color:floralwhite;">Address:</label>
-      <input style="color: floralwhite" id="addr" name="addr" placeholder="Type your Address" required="" type="text">
+         <label for="Address" style="float:left; color:floralwhite;">Address:</label>
+           <input style="color: floralwhite" id="addr" name="addr" placeholder="Type your Address" required="" type="text">
 
      
 
-      </div>
+             </div>
       
       
-		      </label>
-		      </div>
+		      		      </div>
 
-       <select class="custom-select" id="Model" >
+       <select class="custom-select" id="Model" name="Model" >
             <option style="background-color:transparent"selected>Model</option>
             <option style="background-color:transparent" value="Sedan">Sedan</option>
             <option style="background-color:transparent" value="Hatchback">Hatchback</option>
             <option style="background-color:transparent" value="SUV">SUV</option>
             <option style="background-color:transparent" value="MUV">MUV</option>
         </select>
-        <select class="custom-select" id="Capacity">
+        <select class="custom-select" id="Capacity" name="Capacity">
             <option selected>Capacity</option>
             <option value="4">4</option>
             <option value="5">5</option>
             <option value="6">6</option>
         </select>
-        <select class="custom-select" id="Fuel">
+        <select class="custom-select" id="Fuel" name="Fuel">
             <option selected>Fuel</option>
             <option value="Petrol">Petrol</option>
             <option value="Diesel">Diesel</option>
         </select>
-        <select class="custom-select" id="Transmission">
+        <select class="custom-select" id="Transmission" name="Transmission">
             <option selected>Transmission</option>
             <option value="Automatic">Automatic</option>
             <option value="Manual">Manual</option>
         </select>
-        <select class="custom-select" id="Colour">
+        <select class="custom-select" id="Colour" name="Colour">
             <option selected>Colour</option>
             <option value="Red">Red</option>
             <option value="Black">Black</option>
@@ -147,7 +145,7 @@
       <label for="agreed" style="color:floralwhite;font-family: 'Comfortaa', cursive;">I agree to the terms and conditions</label>
       <input id="agreed" type="checkbox" style="color:floralwhite">
 
-      <br></br>
+      <br><br>
       <input style="color:floralwhite;font-family: 'Comfortaa', cursive;" type="submit">
     
 
@@ -155,9 +153,10 @@
 
         </div>
     </div>
+    </form>  
                              </div>
 
-</form>  
+
   </div>
   
   
