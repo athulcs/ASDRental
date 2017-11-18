@@ -44,8 +44,8 @@ app.get('/signin',function(req,res){
 app.get('/rentInput',function(req,res){
     res.sendFile('rentinput.html',{'root': __dirname + '/templates'});
 });
-app.get('/lendPage',function(req,res){
-    res.sendFile('lend.html',{'root': __dirname + '/templates'});
+app.get('/lend',function(req,res){
+    res.sendFile('lendinput.html',{'root': __dirname + '/templates'});
 });
 
 app.post('/verifyuser', function(req, res){
@@ -72,26 +72,47 @@ app.post('/verifyuser', function(req, res){
 
 
 });
-var obj2 = [];
+var obj = [];
 app.post('/submitRent', function(req,res){
 	console.log('Rent details input');
-	console.log(req.body);
-	var sel = 'SELECT * FROM Car WHERE Model="'+req.body.Model+'" AND Capacity="'+req.body.Capacity+'" AND Fuel="'+req.body.Fuel'" AND Trans="'+req.body.Trans'" ';
+//	console.log(req.body);
+	var sel = 'SELECT * FROM Car WHERE Model="'+req.body.Model+'" AND Capacity="'+req.body.Capacity+'" AND Fuel="'+req.body.Fuel+'" AND Trans="'+req.body.Trans+'" ';
 
 	connection.query(sel, function(err,result){
 	
         if(err){
             throw err;
         } else {
-            obj2 = JSON.parse(JSON.stringify(result));
-            console.log(obj2);
-           //res.render('rent', { obj: obj });
+            obj = JSON.parse(JSON.stringify(result));
+            console.log(obj);
+           res.render('rent', { obj: obj });
         }
 	});
 	
 });
 
+app.post('/lendInput', function(req, res) {
+	console.log('Lent details input');
+	//console.log(req.body);
+	var record = {Name: req.body.name, Email: req.body.email, Phone: req.body.phone, Addr: req.body.addr};
+	var record2 = {Model: req.body.Model, Capacity: req.body.Capacity, Fuel: req.body.Fuel, Trans: req.body.Transmission, Colour: req.body.Colour, Cost: req.body.Cost};
 
+	//connection.connect();
+	connection.query('INSERT INTO Lend SET ?', record, function(err,res){
+	  	if(err) throw err;
+		//console.log('Last record insert id:', res.insertId);
+
+	});
+	
+	connection.query('INSERT INTO Car SET ?', record2, function(err,res){
+	  	if(err) throw err;
+	});
+
+//	res.redirect('/message');
+	//connection.end();
+
+	//res.end();
+});
 // **********RENT******
 app.set('view engine', 'ejs');
 var obj = [];

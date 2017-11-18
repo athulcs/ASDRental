@@ -958,9 +958,7 @@ fieldset[disabled] .btn-theme {
   box-shadow: none;
   border-radius: 0;
   padding-left: 15px;
-  
 }
-
 
 .form-control::-moz-placeholder {
   color: #a6a7aa;
@@ -1604,6 +1602,25 @@ background-color:#0e76a8;
 
 /*--------------
 		table scroll 
-----------*/
-
- 
+*/
+input[type="text"]
+{
+    background: transparent;
+    border: none;
+}
+ input[type="email"]
+{
+    background: transparent;
+    border: none;
+}
+ input[type="submit"]
+{
+  
+    background: transparent;
+    border:1px solid white;
+}
+#myform
+{color:floralwhite;
+background-color: transparent;
+border:none;
+}
