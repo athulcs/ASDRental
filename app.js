@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
 
   host     : 'localhost',
   user     : 'root',
-  password : '',      //Change According to your mysql settings
+  password : 'root',      //Change According to your mysql settings
   database : 'carrent'
 });
 var bodyParser = require('body-parser');
@@ -73,9 +73,9 @@ app.post('/verifyuser', function(req, res){
 
 });
 
-app.get('/submitRent', function(req,res){
+app.post('/submitRent', function(req,res){
 	console.log('Rent details input');
-	console.log(req.body.Model);
+	console.log(req.body);
 	
 });
 

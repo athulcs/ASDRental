@@ -44,16 +44,13 @@
 					    <li><a href="#">DE</a></li>
 						<li><a href="#">FR</a></li>
 					  </ul>
-					</div---> 
+					</div--> 
 					
                         <div class="menu-container">
                             <ul class="nav navbar-nav navbar-nav-right">
-                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="#body">Home</a></li>
-                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="#about">Team</a></li>
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="/">Home</a></li>
+                              
 								<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="/signin.html">Login</a></li>
-                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="#products">Products</a></li>
-								<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="#work">Credentials</a></li>
-                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="#pricing">Pricing</a></li>
                                 <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="#contact">Contact</a></li>
                             </ul>
                         </div>
@@ -70,48 +67,49 @@
                          <div id="demo" style=" width: 100%; padding-top: 50px;">
 <div style="padding-top:120px">
   <h3 style="color:floralwhite">Please choose the vehicle specifications:</h3>
-    <form id="rentInput" action="/submitRent" method="get">
+    <form id="rentInput" action="/submitRent" method="post">
      <div class="form-group">   
 	 
 	  <select class="Model" name="Model">
             <option name="" selected>Model</option>
-            <option name="val1" value="1">Sedan</option>
-            <option name="val2" value="2">Hatchback</option>
-            <option name="val3" value="3">SUV</option>
-            <option name="val4" value="4">MUV</option>
+            <option name="val1" value="Sedan">Sedan</option>
+            <option name="val2" value="Hatchback">Hatchback</option>
+            <option name="val3" value="SUV">SUV</option>
+            <option name="val4" value="MUV">MUV</option>
         </select>
 		 
-		<!--select class="Capacity">
+		<select class="Capacity" name="Capacity">
             <option selected>Capacity</option>
-            <option value="1">4</option>
-            <option value="2">5</option>
-            <option value="3">6</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
         </select>
         <select class="Fuel">
             <option selected>Fuel</option>
-            <option value="1">Petrol</option>
-            <option value="2">Diesel</option>
+            <option value="Petrol">Petrol</option>
+            <option value="Diesel">Diesel</option>
         </select>
         <select class="Trans">
             <option selected>Transmission</option>
-            <option value="1">Automatic</option>
-            <option value="2">Manual</option>
+            <option value="Automatic">Automatic</option>
+            <option value="Manual">Manual</option>
         </select>
         <select class="Colour">
             <option selected>Colour</option>
-            <option value="1">Red</option>
-            <option value="2">Black</option>
-            <option value="3">Blue</option>
-            <option value="3">White</option>
-            <option value="3">Other</option>
+            <option value="Red">Red</option>
+            <option value="Black">Black</option>
+            <option value="Blue">Blue</option>
+            <option value="White">White</option>
+            <option value="Other">Other</option>
         </select>
     <div style="padding-top:30px">
      
       <label style="color: floralwhite" for="exampleInputEmail1">Your location</label>
     <input type="address" class="form-control" id="exampleInputaddress" aria-describedby="addressHelp" placeholder="Enter address">
-	<div class="col-sm-1"-->
+	<div class="col-sm-1">
 	  <button id="btnRent" class="btn btn-sm btn-primary-outline btn-block" type="submit" style="color: white; margin-right:900px;" >Submit</button>
-	  <!--/div-->
+	  </div>
+	</div>
 
 		 </form>
     <div class="col-sm-3">
