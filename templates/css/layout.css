@@ -1603,5 +1603,7 @@ background-color:#0e76a8;
 /*--------------
 		table scroll 
 ----------*/
-
- 
+.scrollit {
+    overflow-y:scroll;
+    height:200px;
+}
