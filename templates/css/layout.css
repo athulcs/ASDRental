@@ -1602,8 +1602,25 @@ background-color:#0e76a8;
 
 /*--------------
 		table scroll 
-----------*/
-.scrollit {
-    overflow-y:scroll;
-    height:200px;
+*/
+input[type="text"]
+{
+    background: transparent;
+    border: none;
+}
+ input[type="email"]
+{
+    background: transparent;
+    border: none;
+}
+ input[type="submit"]
+{
+  
+    background: transparent;
+    border:1px solid white;
+}
+#myform
+{color:floralwhite;
+background-color: transparent;
+border:none;
 }
