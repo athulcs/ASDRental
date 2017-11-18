@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
 
   host     : 'localhost',
   user     : 'root',
-  password : 'root',      //Change According to your mysql settings
+  password : '',      //Change According to your mysql settings
   database : 'carrent'
 });
 var bodyParser = require('body-parser');
@@ -72,10 +72,22 @@ app.post('/verifyuser', function(req, res){
 
 
 });
-
+var obj2 = [];
 app.post('/submitRent', function(req,res){
 	console.log('Rent details input');
 	console.log(req.body);
+	var sel = 'SELECT * FROM Car WHERE Model="'+req.body.Model+'" AND Capacity="'+req.body.Capacity+'" AND Fuel="'+req.body.Fuel'" AND Trans="'+req.body.Trans'" ';
+
+	connection.query(sel, function(err,result){
+	
+        if(err){
+            throw err;
+        } else {
+            obj2 = JSON.parse(JSON.stringify(result));
+            console.log(obj2);
+           //res.render('rent', { obj: obj });
+        }
+	});
 	
 });
 
