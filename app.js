@@ -77,7 +77,7 @@ app.post('/verifyuser', function(req, res){
 // **********RENT******
 app.set('view engine', 'ejs');
 var obj = [];
-app.get('/rentPage', function(req, res){
+app.get('/carDetails', function(req, res){
 
     connection.query('SELECT * FROM Car', function(err, result) {
 

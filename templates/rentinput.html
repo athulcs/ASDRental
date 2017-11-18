@@ -70,7 +70,9 @@
                          <div id="demo" style=" width: 100%; padding-top: 50px;">
 <div style="padding-top:120px">
   <h3 style="color:floralwhite">Please choose the vehicle specifications:</h3>
-       <select class="custom-select">
+    <form>
+  <div class="form-group">   
+	<select class="custom-select">
             <option selected>Model</option>
             <option value="1">Sedan</option>
             <option value="2">Hatchback</option>
@@ -102,12 +104,16 @@
             <option value="3">Other</option>
         </select>
     <div style="padding-top:30px">
-     <form>
-  <div class="form-group">
+     
       <label style="color: floralwhite" for="exampleInputEmail1">Your location</label>
     <input type="address" class="form-control" id="exampleInputaddress" aria-describedby="addressHelp" placeholder="Enter address">
-    <small id="addressHelp" class="form-text text-muted">This is to know the address where the car has to be brought.</small>
-  </div>   
+	<div class="col-sm-1">
+	  <button id="btnRent" class="btn btn-sm btn-primary-outline btn-block" type="submit" style="color: white; margin-right:900px;" >Submit</button>
+	  </div>	
+    <div class="col-sm-3">
+    <small id="addressHelp" class="form-text text-muted" style=" font-size:17px;"> View <a href="/carDetails"> vehicle list </a></small>
+	  </div>
+		 </div>   
     </form>
     </div>
                              </div>
