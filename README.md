@@ -23,5 +23,5 @@ DB Schema:
    Duration INT(10),FCost INT(10),VID INT(11));
 6. create table Lend (LendID INT(11),Name VARCHAR(20), Email VARCHAR(30), Pass VARCHAR(10), Phone INT(10), Addr VARCHAR(40),
    VID INT(11));
-7. create table login (email varchar(50),pass varchar(20));   
+7. create table login (Email varchar(50),Pass varchar(20),Phone int);   
    
