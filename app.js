@@ -41,6 +41,11 @@ app.get('/signin',function(req,res){
     res.sendFile('signin.html',{'root': __dirname + '/templates'});
 });
 
+app.get('/showSignInPageretry',function(req,res){
+    res.sendFile('signinretry.html',{'root': __dirname + '/templates'});
+});
+
+
 app.get('/rentInput',function(req,res){
     res.sendFile('rentinput.html',{'root': __dirname + '/templates'});
 });
