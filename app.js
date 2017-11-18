@@ -103,7 +103,6 @@ app.post('/lendInput', function(req, res) {
 		//console.log('Last record insert id:', res.insertId);
 
 	});
-	
 	connection.query('INSERT INTO Car SET ?', record2, function(err,res){
 	  	if(err) throw err;
 	});
