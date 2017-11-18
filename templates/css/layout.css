@@ -958,7 +958,9 @@ fieldset[disabled] .btn-theme {
   box-shadow: none;
   border-radius: 0;
   padding-left: 15px;
+  
 }
+
 
 .form-control::-moz-placeholder {
   color: #a6a7aa;
