@@ -57,6 +57,19 @@ app.get('/lendsubmit',function(req,res){
     res.sendFile('lendsubmit.html',{'root': __dirname + '/templates'});
 });
 
+app.post('/registeruser', function(req, res){
+
+console.log(req.body);
+var newuser = {email: req.body.email, pass: req.body.pass, user:req.body.fname, phone:req.body.phone};
+connection.query('INSERT INTO login SET ?', newuser, function(err,res){
+      if(err) throw err;
+    console.log('Last record insert id:', res.insertId);
+  });
+
+     res.redirect('/signin');
+});
+
+
 app.post('/verifyuser', function(req, res){
   console.log('checking user in database');
   console.log(req.body.pass);
