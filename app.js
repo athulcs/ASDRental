@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
 
   host     : 'localhost',
   user     : 'root',
-  password : 'root',      //Change According to your mysql settings
+  password : '',      //Change According to your mysql settings
   database : 'carrent'
 });
 var bodyParser = require('body-parser');
@@ -41,7 +41,9 @@ app.get('/signin',function(req,res){
     res.sendFile('signin.html',{'root': __dirname + '/templates'});
 });
 
-
+app.get('/rentInput',function(req,res){
+    res.sendFile('rentinput.html',{'root': __dirname + '/templates'});
+});
 app.get('/lendPage',function(req,res){
     res.sendFile('lend.html',{'root': __dirname + '/templates'});
 });
@@ -71,11 +73,17 @@ app.post('/verifyuser', function(req, res){
 
 });
 
+app.get('/submitRent', function(req,res){
+	console.log('Rent details input');
+	console.log(req.body.Model);
+	
+});
+
 
 // **********RENT******
 app.set('view engine', 'ejs');
 var obj = [];
-app.get('/rentPage', function(req, res){
+app.get('/carDetails', function(req, res){
 
     connection.query('SELECT * FROM Car', function(err, result) {
 
