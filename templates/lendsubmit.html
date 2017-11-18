@@ -17,6 +17,8 @@
         <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/layout.css" rel="stylesheet" type="text/css"/>
         <link rel="shortcut icon" href="favicon.ico"/>
+        <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+
     </head>
 <body>
   <header class="header navbar-fixed-top">
@@ -48,8 +50,12 @@
 					
                         <div class="menu-container">
                             <ul class="nav navbar-nav navbar-nav-right">
-                            <!--    <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="#body">Home</a></li> -->
-								<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="/signin.html">Logout</a></li>      
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="/">Home</a></li>
+                                
+								<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="/signin.html">Login</a></li>
+                               
+								
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="#contact">Contact</a></li>
                             </ul>
                         </div>
                     </div>
@@ -58,45 +64,18 @@
 			</header>
 	 <div class="carousel-inner" role="listbox">
                 <div class="item active">
-                    <img class="img-responsive" src="img/1920x1080/01.jpg" alt="Slider Image">
+                    <img class="img-responsive" src="img/carlend.jpg" alt="Slider Image">
                     <div class="container" style="width: 100%;">
                         <div class="carousel-centered" style="width: 100%; padding-left: 50px; padding-right: 50px;">
-							<div class="margin-b-100" style="width: 100%;">
-                         <div id="demo" style=" width: 100%; padding-bottom:20px;">
-  <h2>Vehicle List</h2>
+							<div class="margin-b-20" style="width: 100%;">
+                         <div id="demo" style=" width: 100%; padding-bottom:250px;">
+
+  <h3 style="color:floralwhite; font-family: 'Comfortaa', cursive;">Your Vehicle to lend has been registered. : ) </h3>
   
-  <!-- Responsive table starts here -->
-  <!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
-  <div class="table-responsive-vertical shadow-z-1" style="width : 100%;">
-  <!-- Table starts here -->
-  <table id="table" class="table table-hover table-mc-light-blue">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Model</th>
-		  <th>Capacity</th>
-		  <th>Fuel</th>
-          <th>Color</th>
-          <th>Transmission</th>
-		  <th>Cost (per day)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% obj.forEach(function (obj) { %>
-        <tr>
-          <td data-title="ID"><%= obj.VID %></td>
-          <td data-title="Name"><%= obj.Model %></td>
-          <td data-title="Link">
-            <a target="_blank"><%= obj.Capacity %></a>
-          </td>
-          <td data-title="Status"><%= obj.Fuel %></td>
-          <td data-title="Status"><%= obj.Colour %></td>
-          <td data-title="Status"><%= obj.Trans %></td>
-          <td data-title="Status"><%= obj.Cost %></td>
-        </tr>
-       <% }) %>
-		  </tbody>
-    </table>
+ 
+                             </div>
+
+
   </div>
   
   
@@ -107,9 +86,9 @@
                       </div>  
 						
                     </div>
-                </div>
+                
 		 <div class="inner cover">
               
           </div>
 	</body>
-       
+</html>

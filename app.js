@@ -53,6 +53,10 @@ app.get('/lend',function(req,res){
     res.sendFile('lendinput.html',{'root': __dirname + '/templates'});
 });
 
+app.get('/lendsubmit',function(req,res){
+    res.sendFile('lendsubmit.html',{'root': __dirname + '/templates'});
+});
+
 app.post('/verifyuser', function(req, res){
   console.log('checking user in database');
   console.log(req.body.pass);
@@ -120,7 +124,7 @@ app.post('/lendInput', function(req, res) {
 	});
 	
 
-//	res.redirect('/message');
+	res.redirect('/lendsubmit');
 	//connection.end();
 
 	//res.end();
