@@ -190,8 +190,8 @@ app.post('/rentTransact', function(req, res){
         if(err){
             throw err;
         } 
-        else if(result==='[]'){
-        	console.log('Blah');   // REDIRECT TO OWNER NOT FOUND PAGE TO BE ADDED
+        else if(!(result.length>0)){
+        	res.sendFile('noowner.html',{'root': __dirname + '/templates'});				   // REDIRECT TO OWNER NOT FOUND PAGE TO BE ADDED
         }
         else {
             obj = JSON.parse(JSON.stringify(result));
