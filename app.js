@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
 
   host     : 'localhost',
   user     : 'root',
-  password : 'root',      //Change According to your mysql settings
+  password : '',      //Change According to your mysql settings
   database : 'carrent'
 });
 var bodyParser = require('body-parser');
@@ -243,7 +243,7 @@ app.post('/rentCar', function(req,res){
 			 obj = JSON.parse(JSON.stringify(result).slice(1,-1));            
 			 var x = obj.FCost;
 			 console.log(x);
-			connection.query('UPDATE rent SET FCost ="'+x+'" WHERE VID="'+req.body.vid+'"',function(err,result){
+			connection.query('UPDATE rent SET FCost ="'+x+'" WHERE VID="'+req.body.vid+'"', function(err,result){
 				if(err){
 
 					throw(err);
@@ -251,6 +251,13 @@ app.post('/rentCar', function(req,res){
 			}); 
 
 		     }
+	});
+	
+	connection.query('DELETE * FROM car WHERE VID = "'+req.body.vid+'"',function(err,res){
+		console.log('running delete query');
+		if(err)
+			throw(err);
+	
 	});
 	
 });
