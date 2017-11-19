@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
 
   host     : 'localhost',
   user     : 'root',
-  password : '',      //Change According to your mysql settings
+  password : 'root',      //Change According to your mysql settings
   database : 'carrent'
 });
 var bodyParser = require('body-parser');
@@ -14,6 +14,7 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 var obj = [];
+var test;
 
 app.listen(3000,function(req,res){
     console.log('Node server running @ http://localhost:3000')
@@ -227,25 +228,28 @@ app.post('/rentCar', function(req,res){
 	
 	//console.log(hope*req.body.duration);
 	
-	var record = {Name: req.body.name, Email: req.body.email, Phone: req.body.phone, Addr: req.body.addr, Duration: req.body.duration, VID:         req.body.vid};
+	var record = {Name: req.body.name, Email: req.body.email, Phone: req.body.phone, Addr: req.body.addr, Duration: req.body.duration, VID: req.body.vid};
 	connection.query('INSERT into rent SET ?', record, function(err,res){
 		if(err)
 			throw err;
 			
        });
 	//var sel = 'UPDATE rent SET FCost = (SELECT car.Cost * rent.Duration FROM car,rent WHERE car.VID=rent.VID LNo="'+req.body.licence+'" ) WHERE LNO="'+req.body.licence+'"';
-	connection.query('SELECT (car.Cost * rent.Duration) as FCost FROM car,rent WHERE car.VID=rent.VID AND rent.VID="'+req.body.vid+'"',function(err,res){
+	connection.query('SELECT (car.Cost * rent.Duration) as FCost FROM car,rent WHERE car.VID=rent.VID AND rent.VID="'+req.body.vid+'"',function(err,result){
 		if(err)
 				throw err;
 		else {
-			 obj = JSON.parse(JSON.stringify(res));
-             console.log(obj);
-			 var x = obj.FCost;
 			 
-			connection.query('UPDATE rent SET FCost ="'+x+'" WHERE rentID="'+req.body.vid+'"',function(err,result){
-				if(err)
+			 obj = JSON.parse(JSON.stringify(result).slice(1,-1));            
+			 var x = obj.FCost;
+			 console.log(x);
+			connection.query('UPDATE rent SET FCost ="'+x+'" WHERE VID="'+req.body.vid+'"',function(err,result){
+				if(err){
+
 					throw(err);
-			});
+				}
+			}); 
+
 		     }
 	});
 	
