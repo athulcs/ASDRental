@@ -185,18 +185,20 @@ app.get('/carDetails', function(req, res){
     });
 });
 
-app.get('/rentTransact', function(req, res){
+app.get('/rentTransact', function(req, res){			//SOMEBODY FIX THIS CRAP
 	console.log(req.body);
-	var sel = 'SELECT * FROM lend WHERE VID="'+req.body.vid+'"';
+	var sel = 'SELECT * FROM lend WHERE VID="'+req.body.VID+'"';
 
-	
     connection.query(sel, function(err, result) {
     	console.log('running query');
         if(err){
             throw err;
         } else {
             obj = JSON.parse(JSON.stringify(result));
-         //   console.log(obj);
+//console.log(obj);
+
+            console.log(obj);
+
            res.render('renttransaction', { obj: obj });
         }
     });
