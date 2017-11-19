@@ -253,14 +253,14 @@ app.post('/rentCar', function(req,res){
 		     }
 	});
 	
-	connection.query('DELETE * FROM car WHERE VID = "'+req.body.vid+'"',function(err,res){
+	connection.query('DELETE FROM car WHERE VID ="'+req.body.vid+'"', function(err,res){
 		console.log('running delete query');
 		if(err)
 			throw(err);
-		else {
-			res.render('thenks');
+		else{
+			res.sendFile('thenks.html',{'root': __dirname + '/templates'});
 		}
-	
 	});
+
 	
 });
