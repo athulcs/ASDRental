@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
 
   host     : 'localhost',
   user     : 'root',
-  password : 'root',      //Change According to your mysql settings
+  password : '',      //Change According to your mysql settings
   database : 'carrent'
 });
 var bodyParser = require('body-parser');
@@ -253,13 +253,17 @@ app.post('/rentCar', function(req,res){
 		     }
 	});
 	
-	connection.query('DELETE FROM car WHERE VID = "'+req.body.vid+'"',function(err,res){
+
+
+	connection.query('DELETE FROM car WHERE VID ="'+req.body.vid+'"', function(err,res){
 		console.log('running delete query');
 		if(err)
 			throw(err);
-		
+		else{
+			res.sendFile('thenks.html',{'root': __dirname + '/templates'});
+		}
 	});
 
-	res.sendFile('rentsuccess.html',{'root': __dirname + '/templates'});
+
 	
 });
