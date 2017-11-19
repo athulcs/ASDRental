@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
 
   host     : 'localhost',
   user     : 'root',
-  password : '',      //Change According to your mysql settings
+  password : 'root',      //Change According to your mysql settings
   database : 'carrent'
 });
 var bodyParser = require('body-parser');
@@ -169,6 +169,20 @@ var obj = [];
 app.get('/carDetails', function(req, res){
 
     connection.query('SELECT * FROM Car', function(err, result) {
+
+        if(err){
+            throw err;
+        } else {
+            obj = JSON.parse(JSON.stringify(result));
+            console.log(obj);
+           res.render('rent', { obj: obj });
+        }
+    });
+});
+
+app.get('/rentTransact', function(req, res){
+
+    connection.query('SELECT  FROM lend', function(err, result) {
 
         if(err){
             throw err;
