@@ -194,9 +194,16 @@ var hope;
 app.post('/rentTransact', function(req, res){
 	console.log(req.body);
 	//hope=req.body.vid;
+	//connection.query('SELECT * FROM lend WHERE VID="'+req.body.vid+'"',function(err,result){
+	//		obj = JSON.parse(JSON.stringify(result));
+		    //hope = obj.Cost;
+			//console.log(hope);
+		//    console.log(obj.Cost);
+		
+	//}); 
     connection.query('SELECT Name,Email,phone,Addr,LNo,VehicleName,VID FROM lend WHERE VID="'+req.body.vid+'"', function(err, result) {
-		hope=result.body.Cost;
-    	console.log('running query');
+		
+		console.log('running query');
         if(err){
             throw err;
         } 
@@ -213,18 +220,33 @@ app.post('/rentTransact', function(req, res){
 	//connection.query('SELECT Cost FROM car')
 });
 
-
+var obj2=[];
 app.post('/rentCar', function(req,res){
 	console.log(req.body);
-	var f=req.body.duration*(hope);
-	console.log(f);
+   // console.log(hope);
 	
-	var record = {Name: req.body.name, Email: req.body.email, Phone: req.body.phone, Addr: req.body.addr, Duration: req.body.duration};
-	connection.query('INSERT into rent SET ?',record,function(err,result){
+	//console.log(hope*req.body.duration);
+	
+	var record = {Name: req.body.name, Email: req.body.email, Phone: req.body.phone, Addr: req.body.addr, Duration: req.body.duration, VID:         req.body.vid};
+	connection.query('INSERT into rent SET ?', record, function(err,res){
 		if(err)
 			throw err;
 			
-			
-		
-	})
+       });
+	//var sel = 'UPDATE rent SET FCost = (SELECT car.Cost * rent.Duration FROM car,rent WHERE car.VID=rent.VID LNo="'+req.body.licence+'" ) WHERE LNO="'+req.body.licence+'"';
+	connection.query('SELECT (car.Cost * rent.Duration) as FCost FROM car,rent WHERE car.VID=rent.VID AND rent.VID="'+req.body.vid+'"',function(err,res){
+		if(err)
+				throw err;
+		else {
+			 obj = JSON.parse(JSON.stringify(res));
+             console.log(obj);
+			 var x = obj.FCost;
+			 
+			connection.query('UPDATE rent SET FCost ="'+x+'" WHERE rentID="'+req.body.vid+'"',function(err,result){
+				if(err)
+					throw(err);
+			});
+		     }
+	});
+	
 });

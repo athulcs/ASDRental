@@ -77,6 +77,7 @@
       <th>Address</th>
           <th>LicenseNO</th>
           <th>VehicleName</th>
+		   <th>Selected VID</th>
         </tr>
       </thead>
       <tbody>
@@ -90,6 +91,7 @@
           <td data-title="Status"><%= obj.Addr %></td>
           <td data-title="Status"><%= obj.LNo %></td>
           <td data-title="Status"><%= obj.VehicleName %></td>
+		   <td data-title="VID"><%= obj.VID %></td>
         </tr>
        <% }) %>
       </tbody>
@@ -121,12 +123,18 @@
            <input style="color: floralwhite" id="addr" name="addr" placeholder="Type your Address" required="" type="text">
 	
 		</div>
-		<label for="Address" style="float:left; color:floralwhite;">Duration :</label>
+		<div>
+		<label for="duration" style="float:left; color:floralwhite;">Duration :</label>
            <input style="color: floralwhite" id="duration" name="duration" placeholder="Enter duration of rent" required="" type="text">
-     
-		</div>
-		       
+        </div>
+		
+		  <div>
+		    <label for="vid" style="float:left; color:floralwhite;">Confirm VID to proceed :</label>
+           <input style="color: floralwhite" id="vid" name="vid" placeholder="Confirm VID" required="" type="text">
+			  </div>
+		
                  <button style="color:white;" type="submit">Submit</button>
+		</div>
                   </form>
   
   
