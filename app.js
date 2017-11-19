@@ -259,11 +259,11 @@ app.post('/rentCar', function(req,res){
 		console.log('running delete query');
 		if(err)
 			throw(err);
-		else{
-			res.sendFile('thenks.html',{'root': __dirname + '/templates'});
-		}
+		
+			
+		
 	});
 
-
+res.sendFile('thenks.html',{'root': __dirname + '/templates'});
 	
 });
