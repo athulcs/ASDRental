@@ -130,7 +130,7 @@ app.post('/lendInput', function(req, res) {
 		console.log('Last record insert id:', res.insertId);
 	
 	});
-	var sel = 'UPDATE lend SET VID = (SELECT VID FROM Car WHERE LNo="'+req.body.licence+'" )';
+	var sel = 'UPDATE lend SET VID = (SELECT VID FROM Car WHERE LNo="'+req.body.licence+'" ) WHERE LNo="'+req.body.licence+'"';
 	connection.query(sel, function(err, result) {
 
         if(err){
@@ -139,7 +139,15 @@ app.post('/lendInput', function(req, res) {
            //res.render('rent', { obj: obj });
         
     });
-	
+	var sel = 'UPDATE car SET LendID = (SELECT LendID FROM lend WHERE LNo="'+req.body.licence+'" ) WHERE LNo="'+req.body.licence+'"';
+	connection.query(sel, function(err, result) {
+
+        if(err){
+            throw err;
+        } 
+           //res.render('rent', { obj: obj });
+        
+    });
 	//connection.query('INSERT INTO lend SET ?', record, function(err,res){
 	  //	if(err) throw err;
 		//console.log('Last record insert id:', res.insertId);
