@@ -104,6 +104,13 @@ app.post('/submitRent', function(req,res){
 	
 });
 
+
+app.post('/rentTransact', function(req,res){
+	console.log(req.body);
+	//res.render(renttransaction)
+});
+
+
 app.post('/lendInput', function(req, res) {
 	console.log('Lent details input');
 	console.log(req.body);
