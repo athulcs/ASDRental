@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
 
   host     : 'localhost',
   user     : 'root',
-  password : 'root',      //Change According to your mysql settings
+  password : '',      //Change According to your mysql settings
   database : 'carrent'
 });
 var bodyParser = require('body-parser');
@@ -123,7 +123,7 @@ app.post('/submitRent', function(req,res){
 app.post('/lendInput', function(req, res) {
 	console.log('Lent details input');
 	console.log(req.body);
-	var record = {Name: req.body.name, Email: req.body.email, Phone: req.body.phone, Addr: req.body.addr , VehicleName: req.body.vehiclename , LNo :req.body.licence};
+	var record = {Name: req.body.name, Email: req.body.email, Phone: req.body.phone, Addr: req.body.addr , VehicleName: req.body.vehiclename , LNo :req.body.licence, Cost:req.body.Cost};
 	
 	var record2 = {Model: req.body.Model, Capacity: req.body.Capacity, Fuel: req.body.Fuel, Trans: req.body.Transmission, Colour: req.body.Colour, Cost: req.body.Cost,LNo :req.body.licence};
 	
@@ -148,7 +148,15 @@ app.post('/lendInput', function(req, res) {
            //res.render('rent', { obj: obj });
         
     });
-	
+	var sel = 'UPDATE car SET LendID = (SELECT LendID FROM lend WHERE LNo="'+req.body.licence+'" ) WHERE LNO="'+req.body.licence+'"';
+	connection.query(sel, function(err, result) {
+
+        if(err){
+            throw err;
+        } 
+           //res.render('rent', { obj: obj });
+        
+    });
 	//connection.query('INSERT INTO lend SET ?', record, function(err,res){
 	  //	if(err) throw err;
 		//console.log('Last record insert id:', res.insertId);
@@ -167,6 +175,7 @@ app.post('/lendInput', function(req, res) {
 // **********RENT******
 app.set('view engine', 'ejs');
 var obj = [];
+
 app.get('/carDetails', function(req, res){
 
     connection.query('SELECT * FROM Car', function(err, result) {
@@ -181,11 +190,12 @@ app.get('/carDetails', function(req, res){
     });
 });
 
-
+var hope;
 app.post('/rentTransact', function(req, res){
-	console.log(req.body.vid);
+	console.log(req.body);
+	//hope=req.body.vid;
     connection.query('SELECT Name,Email,phone,Addr,LNo,VehicleName,VID FROM lend WHERE VID="'+req.body.vid+'"', function(err, result) {
-
+		hope=result.body.Cost;
     	console.log('running query');
         if(err){
             throw err;
@@ -199,4 +209,22 @@ app.post('/rentTransact', function(req, res){
            res.render('renttransaction', { obj: obj });
         }
     });
+	//var sel = 'SELECT Cost FROM car WHERE LNo = (SELECT VID FROM Car WHERE LNo="'+req.body.licence+'" ) WHERE LNO="'+req.body.licence+'"';
+	//connection.query('SELECT Cost FROM car')
+});
+
+
+app.post('/rentCar', function(req,res){
+	console.log(req.body);
+	var f=req.body.duration*(hope);
+	console.log(f);
+	
+	var record = {Name: req.body.name, Email: req.body.email, Phone: req.body.phone, Addr: req.body.addr, Duration: req.body.duration};
+	connection.query('INSERT into rent SET ?',record,function(err,result){
+		if(err)
+			throw err;
+			
+			
+		
+	})
 });
