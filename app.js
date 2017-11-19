@@ -186,7 +186,7 @@ app.get('/carDetails', function(req, res){
 });
 
 app.get('/rentTransact', function(req, res){
-	console.log(req.body.vid);
+	console.log(req.body);
     connection.query('SELECT Name,Email,phone,Addr,LNo,VehicleName,VID FROM lend', function(err, result) {
     	console.log('running query');
         if(err){
