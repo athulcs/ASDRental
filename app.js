@@ -18,6 +18,7 @@ var obj = [];
 app.listen(3000,function(req,res){
     console.log('Node server running @ http://localhost:3000')
 	 /*connection.query('SELECT * FROM car', function(err, result) {
+
         if(err){
             throw err;
         } else {
@@ -55,6 +56,19 @@ app.get('/lend',function(req,res){
 app.get('/lendsubmit',function(req,res){
     res.sendFile('lendsubmit.html',{'root': __dirname + '/templates'});
 });
+
+app.post('/registeruser', function(req, res){
+
+console.log(req.body);
+var newuser = {email: req.body.email, pass: req.body.pass, user:req.body.fname, phone:req.body.phone};
+connection.query('INSERT INTO login SET ?', newuser, function(err,res){
+      if(err) throw err;
+    console.log('Last record insert id:', res.insertId);
+  });
+
+     res.redirect('/signin');
+});
+
 
 app.post('/verifyuser', function(req, res){
   console.log('checking user in database');
@@ -138,15 +152,6 @@ app.post('/lendInput', function(req, res) {
            //res.render('rent', { obj: obj });
         
     });
-	var sel = 'UPDATE car SET LendID = (SELECT LendID FROM lend WHERE LNo="'+req.body.licence+'" ) WHERE LNo="'+req.body.licence+'"';
-	connection.query(sel, function(err, result) {
-
-        if(err){
-            throw err;
-        } 
-           //res.render('rent', { obj: obj });
-        
-    });
 	
 	//connection.query('INSERT INTO lend SET ?', record, function(err,res){
 	  //	if(err) throw err;
@@ -181,15 +186,18 @@ app.get('/carDetails', function(req, res){
 });
 
 app.get('/rentTransact', function(req, res){
+	console.log(req.body);
+	var sel = 'SELECT * FROM lend WHERE VID="'+req.body.vid+'"';
 
-    connection.query('SELECT  FROM lend', function(err, result) {
-
+	
+    connection.query(sel, function(err, result) {
+    	console.log('running query');
         if(err){
             throw err;
         } else {
             obj = JSON.parse(JSON.stringify(result));
-            console.log(obj);
-           res.render('rent', { obj: obj });
+         //   console.log(obj);
+           res.render('renttransaction', { obj: obj });
         }
     });
 });
