@@ -117,18 +117,37 @@ app.post('/lendInput', function(req, res) {
 	var record = {Name: req.body.name, Email: req.body.email, Phone: req.body.phone, Addr: req.body.addr , VehicleName: req.body.vehiclename , LNo :req.body.licence};
 	
 	var record2 = {Model: req.body.Model, Capacity: req.body.Capacity, Fuel: req.body.Fuel, Trans: req.body.Transmission, Colour: req.body.Colour, Cost: req.body.Cost,LNo :req.body.licence};
-
-	//connection.connect();
-	connection.query('INSERT INTO lend SET ?', record, function(err,res){
-	  	if(err) throw err;
-		console.log('Last record insert id:', res.insertId);
-
-	});
 	
+	//connection.connect();
 	connection.query('INSERT INTO car SET ?', record2, function(err,res){
 	  	if(err) throw err;
 	  	console.log('Last record insert id:', res.insertId);
 	});
+	
+	
+	connection.query('INSERT INTO lend SET ?', record, function(err,res){
+	  	if(err) throw err;
+		console.log('Last record insert id:', res.insertId);
+	
+	});
+	var sel = 'UPDATE lend SET VID = (SELECT VID FROM Car WHERE LNo="'+req.body.licence+'" )';
+	connection.query(sel, function(err, result) {
+
+        if(err){
+            throw err;
+        } 
+           //res.render('rent', { obj: obj });
+        
+    });
+	
+	//connection.query('INSERT INTO lend SET ?', record, function(err,res){
+	  //	if(err) throw err;
+		//console.log('Last record insert id:', res.insertId);
+
+	//});
+	
+	
+	
 	
 
 	res.redirect('/lendsubmit');
