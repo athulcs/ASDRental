@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
 
   host     : 'localhost',
   user     : 'root',
-  password : '',      //Change According to your mysql settings
+  password : 'root',      //Change According to your mysql settings
   database : 'carrent'
 });
 var bodyParser = require('body-parser');
@@ -104,10 +104,6 @@ app.post('/submitRent', function(req,res){
 });
 
 
-app.post('/rentTransact', function(req,res){
-	console.log(req.body);
-	//res.render(renttransaction)
-});
 
 
 app.post('/lendInput', function(req, res) {
@@ -180,13 +176,17 @@ app.get('/carDetails', function(req, res){
     });
 });
 
-app.get('/rentTransact', function(req, res){
+app.post('/rentTransact', function(req, res){
 	console.log(req.body.vid);
-    connection.query('SELECT Name,Email,phone,Addr,LNo,VehicleName,VID FROM lend', function(err, result) {
+    connection.query('SELECT Name,Email,phone,Addr,LNo,VehicleName,VID FROM lend WHERE VID="'+req.body.vid+'"', function(err, result) {
     	console.log('running query');
         if(err){
             throw err;
-        } else {
+        } 
+        else if(result==='[]'){
+        	console.log('Blah');   // REDIRECT TO OWNER NOT FOUND PAGE TO BE ADDED
+        }
+        else {
             obj = JSON.parse(JSON.stringify(result));
             console.log(obj);
            res.render('renttransaction', { obj: obj });
