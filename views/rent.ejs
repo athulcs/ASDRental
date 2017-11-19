@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
 	<html lang="en" class="no-js">
    
     <head>
@@ -63,27 +62,28 @@
                         <div class="carousel-centered" style="width: 100%; padding-left: 50px; padding-right: 50px;">
 							<div class="margin-b-100" style="width: 100%;">
                          <div id="demo" style=" width: 100%; padding-bottom:20px;">
-  <h2>Vehicle List</h2>
-  
+  <h2></h2>
+  Vehicle List
   <!-- Responsive table starts here -->
   <!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
   <div class="table-responsive-vertical shadow-z-1" style="width : 100%;">
   <!-- Table starts here -->
   <table id="table" class="table table-hover table-mc-light-blue">
       <thead>
-        <tr>
+         <tr>
           <th>ID</th>
           <th>Model</th>
-		  <th>Capacity</th>
-		  <th>Fuel</th>
+      <th>Capacity</th>
+      <th>Fuel</th>
           <th>Color</th>
           <th>Transmission</th>
-		  <th>Cost (per day)</th>
+      <th>Cost (per day)</th>
         </tr>
+        
       </thead>
       <tbody>
         <% obj.forEach(function (obj) { %>
-        <tr>
+         <tr>
           <td data-title="ID"><%= obj.VID %></td>
           <td data-title="Name"><%= obj.Model %></td>
           <td data-title="Link">
@@ -94,20 +94,21 @@
           <td data-title="Status"><%= obj.Trans %></td>
           <td data-title="Status"><%= obj.Cost %></td>
         </tr>
+        
        <% }) %>
 		  </tbody>
     </table>
   </div>
 							 <br><br>
 							 <div>
-      <form action="/rentTransact" method="post">
+      <form action="/rentTransact" method="get">
 								
          <label for="VID" style="float:left; color:floralwhite;">Enter VID:</label>
            <input style="color: floralwhite" id="vid" name="vid" placeholder=" Enter required VID" required="" type="text">
 
      
 
-             				</div>
+             				
 								 <input style="color:floralwhite;font-family: 'Comfortaa', cursive;" type="submit">
 								  </form>
   
@@ -120,8 +121,8 @@
 						
                     </div>
                 </div>
-		 <div class="inner cover">
-              
-          </div>
+	
 	</body>
+
+  </html>
        

@@ -173,15 +173,15 @@ app.get('/carDetails', function(req, res){
 });
 
 app.get('/rentTransact', function(req, res){
-
-    connection.query('SELECT  FROM lend', function(err, result) {
-
+	console.log(req.body.vid);
+    connection.query('SELECT Name,Email,phone,Addr,LNo,VehicleName,VID FROM lend', function(err, result) {
+    	console.log('running query');
         if(err){
             throw err;
         } else {
             obj = JSON.parse(JSON.stringify(result));
             console.log(obj);
-           res.render('rent', { obj: obj });
+           res.render('renttransaction', { obj: obj });
         }
     });
 });
