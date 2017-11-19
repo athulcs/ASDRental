@@ -114,7 +114,7 @@ app.post('/rentTransact', function(req,res){
 app.post('/lendInput', function(req, res) {
 	console.log('Lent details input');
 	console.log(req.body);
-	var record = {Name: req.body.name, Email: req.body.email, Phone: req.body.phone, Addr: req.body.addr};
+	var record = {Name: req.body.name, Email: req.body.email, Phone: req.body.phone, Addr: req.body.addr , VehicleName: req.body.vehiclename};
 	
 	var record2 = {Model: req.body.Model, Capacity: req.body.Capacity, Fuel: req.body.Fuel, Trans: req.body.Transmission, Colour: req.body.Colour, Cost: req.body.Cost};
 
