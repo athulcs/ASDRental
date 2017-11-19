@@ -257,6 +257,9 @@ app.post('/rentCar', function(req,res){
 		console.log('running delete query');
 		if(err)
 			throw(err);
+		else {
+			res.render('thenks');
+		}
 	
 	});
 
