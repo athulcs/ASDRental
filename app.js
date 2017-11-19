@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
 
   host     : 'localhost',
   user     : 'root',
-  password : '',      //Change According to your mysql settings
+  password : 'root',      //Change According to your mysql settings
   database : 'carrent'
 });
 var bodyParser = require('body-parser');
@@ -130,7 +130,7 @@ app.post('/lendInput', function(req, res) {
 		console.log('Last record insert id:', res.insertId);
 	
 	});
-	var sel = 'UPDATE lend SET VID = (SELECT VID FROM Car WHERE LNo="'+req.body.licence+'" )';
+	var sel = 'UPDATE lend SET VID = (SELECT VID FROM Car WHERE LNo="'+req.body.licence+'" ) WHERE LNO="'+req.body.licence+'"';
 	connection.query(sel, function(err, result) {
 
         if(err){
@@ -161,6 +161,20 @@ var obj = [];
 app.get('/carDetails', function(req, res){
 
     connection.query('SELECT * FROM Car', function(err, result) {
+
+        if(err){
+            throw err;
+        } else {
+            obj = JSON.parse(JSON.stringify(result));
+            console.log(obj);
+           res.render('rent', { obj: obj });
+        }
+    });
+});
+
+app.get('/rentTransact', function(req, res){
+
+    connection.query('SELECT  FROM lend', function(err, result) {
 
         if(err){
             throw err;
