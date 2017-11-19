@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
 
   host     : 'localhost',
   user     : 'root',
-  password : 'root',      //Change According to your mysql settings
+  password : '',      //Change According to your mysql settings
   database : 'carrent'
 });
 var bodyParser = require('body-parser');
