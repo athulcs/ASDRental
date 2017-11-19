@@ -260,10 +260,13 @@ app.post('/rentCar', function(req,res){
 		if(err)
 			throw(err);
 		
+
 			
 		
 	});
 
 res.sendFile('thenks.html',{'root': __dirname + '/templates'});
-	
-});
+
+	});
+
+
