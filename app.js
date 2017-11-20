@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
 
   host     : 'localhost',
   user     : 'root',
-  password : '',      //Change According to your mysql settings
+  password : 'root',      //Change According to your mysql settings
   database : 'carrent'
 });
 var bodyParser = require('body-parser');
@@ -17,7 +17,7 @@ var obj = [];
 var test;
 
 app.listen(3000,function(req,res){
-    console.log('Node server running @ http://localhost:3000')
+    console.log('Node server running @ http://localhost:3000');
 	 /*connection.query('SELECT * FROM car', function(err, result) {
 
         if(err){
