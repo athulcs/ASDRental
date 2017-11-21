@@ -14,7 +14,7 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 var obj = [];
-var test;
+
 
 app.listen(3000,function(req,res){
     console.log('Node server running @ http://localhost:3000');
