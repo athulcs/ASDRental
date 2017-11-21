@@ -101,39 +101,40 @@
                <div>
       <form action="/rentCar" method="post">
                 
-         <label for="VID" style="float:left; color:white;">Rent the Car ?</label>
+         <label for="VID" style="float:left; color:#3b3f44; font-size:20px;">Rent the Car </label>
 		  <br><br>
 	
 		  <!--form action="/lendInput" method="post"-->
     <div class="form-group">
       
-      <div style="color:floralwhite">
+      <div style="color:#3b3f44">
         <label for="fname" class="ok">Name:</label>
-        <input style="color: floralwhite" id="name" name="name" placeholder="John" required="" type="text">
+        <input style="color: black" id="name" name="name" placeholder="John" required="" type="text">
         
         <label for="email">Email:</label>
-        <input style="color: floralwhite" id="email" name="email" placeholder="john@example.com" required="" type="email">
+        <input style="color: black" id="email" name="email" placeholder="john@example.com" required="" type="email">
         <br><br>
         <label for="phonenumber">Phone Number:</label>
-        <input maxlength="10" style="color: floralwhite" id="phone" name="phone" placeholder="9123456780" pattern=".{10}" required="" title="Please enter a valid number" type="text">
-		</div>
+        <input maxlength="10" style="color: black" id="phone" name="phone" placeholder="9123456780" pattern=".{10}" required="" title="Please enter a valid number" type="text">
+        <p></p>
+          <label for="Address" style="float:left; color:#3b3f44;">Address:</label>
+           <input style="color: black" id="addr" name="addr" placeholder="Type your Address" required="" type="text">
+  <p></p>
       
-      <div>
-         <label for="Address" style="float:left; color:floralwhite;">Address:</label>
-           <input style="color: floralwhite" id="addr" name="addr" placeholder="Type your Address" required="" type="text">
-	
+    <label for="duration" style="float:left; color:#3b3f44;">Duration :</label>
+           <input style="color: black" id="duration" name="duration" placeholder="Enter duration of rent" required="" type="text">
+           <p></p>
+            <label for="vid" style="float:left; color:#3b3f44;">Confirm VID to proceed :</label>
+           <input style="color: black" id="vid" name="vid" placeholder="Confirm VID" required="" type="text">
+            <p></p>
+            <button style="color:#3b3f44;" type="submit">Submit</button>
+        
+
+
 		</div>
-		<div>
-		<label for="duration" style="float:left; color:floralwhite;">Duration :</label>
-           <input style="color: floralwhite" id="duration" name="duration" placeholder="Enter duration of rent" required="" type="text">
-        </div>
+     
+		  
 		
-		  <div>
-		    <label for="vid" style="float:left; color:floralwhite;">Confirm VID to proceed :</label>
-           <input style="color: floralwhite" id="vid" name="vid" placeholder="Confirm VID" required="" type="text">
-			  </div>
-		
-                 <button style="color:white;" type="submit">Submit</button>
 		</div>
                   </form>
   
