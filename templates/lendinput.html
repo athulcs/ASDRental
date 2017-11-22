@@ -4,7 +4,7 @@
 
     <head>
         <meta charset="utf-8"/>
-        <title>RnL</title>
+        <title>Carrent</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport"/>
         <meta content="FlameOnePage freebie theme for web startups by FairTech SEO." name="description"/>
@@ -16,9 +16,9 @@
         <link href="css/animate.css" rel="stylesheet">
         <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/layout.css" rel="stylesheet" type="text/css"/>
-        <link rel="shortcut icon" href="favicon.ico"/>
+        <link rel="shortcut icon" href="http://icons.iconarchive.com/icons/elegantthemes/beautiful-flat-one-color/32/car-icon.png"/>
         <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Syncopate" rel="stylesheet">
+         <link href="https://fonts.googleapis.com/css?family=Syncopate" rel="stylesheet"
 
     </head>
 <body>
@@ -40,8 +40,9 @@
                     </div>
 
                     <div class="collapse navbar-collapse nav-collapse">
-                      <div  class="nav navbar-nav navbar-nav-left" style="padding-top:35px;" >
+                       <div  class="nav navbar-nav navbar-nav-left" style="padding-top:35px;" >
                         <h4 style="color:#eadfce;font-weight:700;font-family: 'Syncopate', sans-serif;">CARRENT</h4></div>
+
 
 					<!--div class="language-switcher">
 					  <ul class="nav-lang">
@@ -55,7 +56,7 @@
                             <ul class="nav navbar-nav navbar-nav-right">
                                 <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="/">Home</a></li>
 
-								<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="/signin.html">Login</a></li>
+								<!--li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="/signin.html">Login</a></li-->
 
 
                                 <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="#contact">Contact</a></li>
@@ -86,7 +87,7 @@
         <input style="color: floralwhite" id="email" name="email" placeholder="john@example.com" required="" type="email">
         <br><br>
         <label for="phonenumber">Phone Number:</label>
-        <input maxlength="10" style="color: floralwhite" id="phone" name="phone" placeholder="9123456780"pattern=".{10}" required="" title="Please enter a valid number" type="text">
+        <input maxlength="10" style="color: floralwhite" id="phone" name="phone" placeholder="9123456780" pattern=".{10}" required="" title="Please enter a valid number" type="text">
       </div>
       <br><br>
       <div>
@@ -100,8 +101,19 @@
 
 
 		      		      </div>
+		<label for="VehicleName" style="float:left; color:floralwhite;">Vehicle Name :</label>
+           <input style="color: floralwhite" id="vehiclename" name="vehiclename" placeholder="Vehicle" required="" type="text">
+    <br><br>
+	<div>
 
-       <select class="custom-select" id="Model" name="Model" >
+         <label for="Licence" style="float:left; color:floralwhite;">Licence:</label>
+           <input style="color: floralwhite" id="licence" name="licence" placeholder="Enter licence number" required="" type="text">
+
+
+
+             </div>
+	<br><br>
+	<select class="custom-select" id="Model" name="Model" >
             <option style="background-color:transparent"selected>Model</option>
             <option style="background-color:transparent" value="Sedan">Sedan</option>
             <option style="background-color:transparent" value="Hatchback">Hatchback</option>
