@@ -14,7 +14,7 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 var obj = [];
-
+var vid;
 
 app.listen(3000,function(req,res){
     console.log('Node server running @ http://localhost:3000');
@@ -38,8 +38,8 @@ app.get('/',function(req,res){
     res.sendFile('index.html',{'root': __dirname + '/templates'});
 
 });
-app.get('/signin',function(req,res){
-    res.sendFile('signin.html',{'root': __dirname + '/templates'});
+app.get('/rentPage',function(req,res){
+    res.sendFile('profile.html',{'root': __dirname + '/templates'});
 });
 
 app.get('/showSignInPageretry',function(req,res){
@@ -61,7 +61,7 @@ app.get('/lendsubmit',function(req,res){
 app.post('/registeruser', function(req, res){
 
 console.log(req.body);
-var newuser = {email: req.body.email, pass: req.body.pass, user:req.body.fname, phone:req.body.phone};
+var newuser = {email: req.body.email, pass: req.body.pass, phone:req.body.phone};
 connection.query('INSERT INTO login SET ?', newuser, function(err,res){
       if(err) throw err;
     console.log('Last record insert id:', res.insertId);
@@ -202,6 +202,7 @@ app.post('/rentTransact', function(req, res){
 		//    console.log(obj.Cost);
 		
 	//}); 
+	vid=req.body.vid;
     connection.query('SELECT Name,Email,phone,Addr,LNo,VehicleName,VID FROM lend WHERE VID="'+req.body.vid+'"', function(err, result) {
 		
 		console.log('running query');
@@ -227,6 +228,7 @@ app.post('/rentCar', function(req,res){
    // console.log(hope);
 	
 	//console.log(hope*req.body.duration);
+	if(req.body.vid === vid){
 	
 	var record = {Name: req.body.name, Email: req.body.email, Phone: req.body.phone, Addr: req.body.addr, Duration: req.body.duration, VID: req.body.vid};
 	connection.query('INSERT into rent SET ?', record, function(err,res){
@@ -267,6 +269,10 @@ app.post('/rentCar', function(req,res){
 
 res.sendFile('thenks.html',{'root': __dirname + '/templates'});
 
-	});
+}
+else{
 
+	res.sendFile('noowner.html',{'root': __dirname + '/templates'});
+}
 
+});
