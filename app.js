@@ -38,8 +38,8 @@ app.get('/',function(req,res){
     res.sendFile('index.html',{'root': __dirname + '/templates'});
 
 });
-app.get('/signin',function(req,res){
-    res.sendFile('signin.html',{'root': __dirname + '/templates'});
+app.get('/rentPage',function(req,res){
+    res.sendFile('profile.html',{'root': __dirname + '/templates'});
 });
 
 app.get('/showSignInPageretry',function(req,res){
@@ -61,7 +61,7 @@ app.get('/lendsubmit',function(req,res){
 app.post('/registeruser', function(req, res){
 
 console.log(req.body);
-var newuser = {email: req.body.email, pass: req.body.pass, user:req.body.fname, phone:req.body.phone};
+var newuser = {email: req.body.email, pass: req.body.pass, phone:req.body.phone};
 connection.query('INSERT INTO login SET ?', newuser, function(err,res){
       if(err) throw err;
     console.log('Last record insert id:', res.insertId);
