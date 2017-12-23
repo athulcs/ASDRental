@@ -4,8 +4,8 @@ var mysql = require('mysql');
 var path = require('path');
 var connection = mysql.createConnection({
 
-  host     : 'localhost',
-  user     : 'root',
+	host     : 'localhost',
+	user     : 'root',
   password : 'root',      //Change According to your mysql settings
   database : 'carrent'
 });
@@ -17,7 +17,7 @@ var obj = [];
 var vid;
 
 app.listen(3000,function(req,res){
-    console.log('Node server running @ http://localhost:3000');
+	console.log('Node server running @ http://localhost:3000');
 	 /*connection.query('SELECT * FROM car', function(err, result) {
 
         if(err){
@@ -26,7 +26,7 @@ app.listen(3000,function(req,res){
             obj = JSON.parse(JSON.stringify(result));
             console.log(obj);
            res.render('Car', { obj: obj });
-        }*/
+       }*/
    // });
 });
 
@@ -35,62 +35,90 @@ app.use('/node_modules',  express.static(__dirname + '/node_modules'));
 app.use(express.static('templates'))
 app.use(express.static(path.join(__dirname, 'templates/css')));
 app.get('/',function(req,res){
-    res.sendFile('index.html',{'root': __dirname + '/templates'});
+	res.sendFile('index.html',{'root': __dirname + '/templates'});
 
 });
 app.get('/rentPage',function(req,res){
-    res.sendFile('profile.html',{'root': __dirname + '/templates'});
+	res.sendFile('profile.html',{'root': __dirname + '/templates'});
 });
 
 app.get('/showSignInPageretry',function(req,res){
-    res.sendFile('signinretry.html',{'root': __dirname + '/templates'});
+	res.sendFile('signinretry.html',{'root': __dirname + '/templates'});
 });
 
 
 app.get('/rentInput',function(req,res){
-    res.sendFile('rentinput.html',{'root': __dirname + '/templates'});
+	res.sendFile('rentinput.html',{'root': __dirname + '/templates'});
 });
 app.get('/lend',function(req,res){
-    res.sendFile('lendinput.html',{'root': __dirname + '/templates'});
+	res.sendFile('lendinput.html',{'root': __dirname + '/templates'});
 });
 
 app.get('/lendsubmit',function(req,res){
-    res.sendFile('lendsubmit.html',{'root': __dirname + '/templates'});
+	res.sendFile('lendsubmit.html',{'root': __dirname + '/templates'});
+});
+
+app.get('/signup',function(req,res){
+	res.sendFile('signup.html',{'root': __dirname + '/templates'});
+});
+
+app.get('/signupretry',function(req,res){
+	res.sendFile('signupretry.html',{'root': __dirname + '/templates'});
 });
 
 app.post('/registeruser', function(req, res){
 
-console.log(req.body);
-var newuser = {email: req.body.email, pass: req.body.pass, phone:req.body.phone};
-connection.query('INSERT INTO login SET ?', newuser, function(err,res){
-      if(err) throw err;
-    console.log('Last record insert id:', res.insertId);
-  });
+	var selectString = 'SELECT COUNT(email) FROM login WHERE email="'+req.body.email+'" ';
 
-     res.redirect('/signin');
+	connection.query(selectString, function(err, results) {
+
+		console.log(results);
+		var string=JSON.stringify(results);
+		console.log(string);
+        //this is a walkaround of checking if the email pass combination is 1 or not it will fail if wrong pass is given
+        if (string === '[{"COUNT(email)":0}]') {
+
+        	console.log(req.body);
+        	var newuser = {email: req.body.email, pass: req.body.pass, phone:req.body.phone};
+        	connection.query('INSERT INTO login SET ?', newuser, function(err,res){
+        		if(err) throw err;
+        		console.log('Last record insert id:', res.insertId);
+        	});
+
+        	res.redirect('/rentPage');
+
+        }
+       
+        else   {
+
+        	res.redirect('/signupretry');
+        }
+    });
+
+
 });
 
 
 app.post('/verifyuser', function(req, res){
-  console.log('checking user in database');
-  console.log(req.body.pass);
-  var selectString = 'SELECT COUNT(email) FROM login WHERE email="'+req.body.email+'" AND pass="'+req.body.pass+'" ';
+	console.log('checking user in database');
+	console.log(req.body.pass);
+	var selectString = 'SELECT COUNT(email) FROM login WHERE email="'+req.body.email+'" AND pass="'+req.body.pass+'" ';
 
-  connection.query(selectString, function(err, results) {
+	connection.query(selectString, function(err, results) {
 
-        console.log(results);
-        var string=JSON.stringify(results);
-        console.log(string);
+		console.log(results);
+		var string=JSON.stringify(results);
+		console.log(string);
         //this is a walkaround of checking if the email pass combination is 1 or not it will fail if wrong pass is given
         if (string === '[{"COUNT(email)":1}]') {
-      res.redirect('/rentPage');
-
-          }
-        if (string === '[{"COUNT(email)":0}]')  {
-          res.redirect('/showSignInPageretry');
+        	res.redirect('/rentPage');
 
         }
-});
+        if (string === '[{"COUNT(email)":0}]')  {
+        	res.redirect('/showSignInPageretry');
+
+        }
+    });
 
 
 
@@ -102,20 +130,20 @@ app.post('/submitRent', function(req,res){
 	console.log(req.body);
 
 //	console.log(req.body);
-	var sel = 'SELECT * FROM Car WHERE Model="'+req.body.Model+'" AND Capacity="'+req.body.Capacity+'" AND Fuel="'+req.body.Fuel+'" AND Trans="'+req.body.Trans+'" ';
+var sel = 'SELECT * FROM Car WHERE Model="'+req.body.Model+'" AND Capacity="'+req.body.Capacity+'" AND Fuel="'+req.body.Fuel+'" AND Trans="'+req.body.Trans+'" ';
 
 
-	connection.query(sel, function(err,result){
+connection.query(sel, function(err,result){
 	
-        if(err){
-            throw err;
-        } else {
-            obj = JSON.parse(JSON.stringify(result));
-            console.log(obj);
-           res.render('rent', { obj: obj });
-        }
-	});
-	
+	if(err){
+		throw err;
+	} else {
+		obj = JSON.parse(JSON.stringify(result));
+		console.log(obj);
+		res.render('rent', { obj: obj });
+	}
+});
+
 });
 
 
@@ -130,34 +158,34 @@ app.post('/lendInput', function(req, res) {
 	
 	//connection.connect();
 	connection.query('INSERT INTO car SET ?', record2, function(err,res){
-	  	if(err) throw err;
-	  	console.log('Last record insert id:', res.insertId);
+		if(err) throw err;
+		console.log('Last record insert id:', res.insertId);
 	});
 	
 	
 	connection.query('INSERT INTO lend SET ?', record, function(err,res){
-	  	if(err) throw err;
+		if(err) throw err;
 		console.log('Last record insert id:', res.insertId);
-	
+
 	});
 	var sel = 'UPDATE lend SET VID = (SELECT VID FROM Car WHERE LNo="'+req.body.licence+'" ) WHERE LNO="'+req.body.licence+'"';
 	connection.query(sel, function(err, result) {
 
-        if(err){
-            throw err;
-        } 
+		if(err){
+			throw err;
+		} 
            //res.render('rent', { obj: obj });
-        
-    });
+
+       });
 	var sel = 'UPDATE car SET LendID = (SELECT LendID FROM lend WHERE LNo="'+req.body.licence+'" ) WHERE LNO="'+req.body.licence+'"';
 	connection.query(sel, function(err, result) {
 
-        if(err){
-            throw err;
-        } 
+		if(err){
+			throw err;
+		} 
            //res.render('rent', { obj: obj });
-        
-    });
+
+       });
 	//connection.query('INSERT INTO lend SET ?', record, function(err,res){
 	  //	if(err) throw err;
 		//console.log('Last record insert id:', res.insertId);
@@ -179,16 +207,16 @@ var obj = [];
 
 app.get('/carDetails', function(req, res){
 
-    connection.query('SELECT * FROM Car', function(err, result) {
+	connection.query('SELECT * FROM Car', function(err, result) {
 
-        if(err){
-            throw err;
-        } else {
-            obj = JSON.parse(JSON.stringify(result));
-            console.log(obj);
-           res.render('rent', { obj: obj });
-        }
-    });
+		if(err){
+			throw err;
+		} else {
+			obj = JSON.parse(JSON.stringify(result));
+			console.log(obj);
+			res.render('rent', { obj: obj });
+		}
+	});
 });
 
 var hope;
@@ -203,19 +231,19 @@ app.post('/rentTransact', function(req, res){
 		
 	//}); 
 	vid=req.body.vid;
-    connection.query('SELECT Name,Email,phone,Addr,LNo,VehicleName,VID FROM lend WHERE VID="'+req.body.vid+'"', function(err, result) {
+	connection.query('SELECT Name,Email,phone,Addr,LNo,VehicleName,VID FROM lend WHERE VID="'+req.body.vid+'"', function(err, result) {
 		
 		console.log('running query');
-        if(err){
-            throw err;
-        } 
-        else if(!(result.length>0)){
+		if(err){
+			throw err;
+		} 
+		else if(!(result.length>0)){
         	res.sendFile('noowner.html',{'root': __dirname + '/templates'});				   // REDIRECT TO OWNER NOT FOUND PAGE TO BE ADDED
         }
         else {
-            obj = JSON.parse(JSON.stringify(result));
-            console.log(obj);
-           res.render('renttransaction', { obj: obj });
+        	obj = JSON.parse(JSON.stringify(result));
+        	console.log(obj);
+        	res.render('renttransaction', { obj: obj });
         }
     });
 	//var sel = 'SELECT Cost FROM car WHERE LNo = (SELECT VID FROM Car WHERE LNo="'+req.body.licence+'" ) WHERE LNO="'+req.body.licence+'"';
@@ -226,25 +254,25 @@ var obj2=[];
 app.post('/rentCar', function(req,res){
 	console.log(req.body);
    // console.log(hope);
-	
+
 	//console.log(hope*req.body.duration);
 	if(req.body.vid === vid){
-	
-	var record = {Name: req.body.name, Email: req.body.email, Phone: req.body.phone, Addr: req.body.addr, Duration: req.body.duration, VID: req.body.vid};
-	connection.query('INSERT into rent SET ?', record, function(err,res){
-		if(err)
-			throw err;
+
+		var record = {Name: req.body.name, Email: req.body.email, Phone: req.body.phone, Addr: req.body.addr, Duration: req.body.duration, VID: req.body.vid};
+		connection.query('INSERT into rent SET ?', record, function(err,res){
+			if(err)
+				throw err;
 			
-       });
+		});
 	//var sel = 'UPDATE rent SET FCost = (SELECT car.Cost * rent.Duration FROM car,rent WHERE car.VID=rent.VID LNo="'+req.body.licence+'" ) WHERE LNO="'+req.body.licence+'"';
 	connection.query('SELECT (car.Cost * rent.Duration) as FCost FROM car,rent WHERE car.VID=rent.VID AND rent.VID="'+req.body.vid+'"',function(err,result){
 		if(err)
-				throw err;
+			throw err;
 		else {
-			 
-			 obj = JSON.parse(JSON.stringify(result).slice(1,-1));            
-			 var x = obj.FCost;
-			 console.log(x);
+
+			obj = JSON.parse(JSON.stringify(result).slice(1,-1));            
+			var x = obj.FCost;
+			console.log(x);
 			connection.query('UPDATE rent SET FCost ="'+x+'" WHERE VID="'+req.body.vid+'"', function(err,result){
 				if(err){
 
@@ -252,7 +280,7 @@ app.post('/rentCar', function(req,res){
 				}
 			}); 
 
-		     }
+		}
 	});
 	
 
@@ -263,11 +291,11 @@ app.post('/rentCar', function(req,res){
 			throw(err);
 		
 
-			
+
 		
 	});
 
-res.sendFile('thenks.html',{'root': __dirname + '/templates'});
+	res.sendFile('thenks.html',{'root': __dirname + '/templates'});
 
 }
 else{
