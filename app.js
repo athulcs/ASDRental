@@ -2,6 +2,8 @@ var express = require('express');
 var app = express();
 var mysql = require('mysql');
 var path = require('path');
+var cookieParser = require('cookie-parser');
+var randtoken = require('rand-token');
 var connection = mysql.createConnection({
 
 	host     : 'localhost',
@@ -15,6 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 
 var obj = [];
 var vid;
+var user;
 
 app.listen(3000,function(req,res){
 	console.log('Node server running @ http://localhost:3000');
@@ -39,7 +42,23 @@ app.get('/',function(req,res){
 
 });
 app.get('/rentPage',function(req,res){
-	res.sendFile('profile.html',{'root': __dirname + '/templates'});
+
+	/*var selectString='SELECT COUNT(email) FROM login WHERE email="'+user+'" AND sid="'+req.cookies.sid+'" ';
+	connection.query(selectString, function(err, results) {
+
+       
+        string=JSON.stringify(results);
+        //this is a walkaround of checking if the email pass combination is 1 or not it will fail if wrong pass is given
+        if (string === '[{"COUNT(email)":1}]') {
+        	res.sendFile('profile.html',{'root': __dirname + '/templates'});
+        }
+        else {
+        	res.sendFile('session.html',{'root': __dirname + '/templates'});
+        }
+        
+    });*/
+res.sendFile('profile.html',{'root': __dirname + '/templates'});
+	
 });
 
 app.get('/showSignInPageretry',function(req,res){
@@ -64,6 +83,17 @@ app.get('/signup',function(req,res){
 
 app.get('/signupretry',function(req,res){
 	res.sendFile('signupretry.html',{'root': __dirname + '/templates'});
+});
+
+app.get('/logout',function(req,res){
+	res.clearCookie("sid");
+	console.log("loggin out");
+	connection.query('UPDATE login SET sid=NULL WHERE email="'+user+'"',function(err,res){
+		if(err) throw err;
+		console.log('Session id deleted from database');
+
+	});
+	res.redirect('/');
 });
 
 app.post('/registeruser', function(req, res){
@@ -100,6 +130,7 @@ app.post('/registeruser', function(req, res){
 
 
 app.post('/verifyuser', function(req, res){
+
 	console.log('checking user in database');
 	console.log(req.body.pass);
 	var selectString = 'SELECT COUNT(email) FROM login WHERE email="'+req.body.email+'" AND pass="'+req.body.pass+'" ';
@@ -111,6 +142,14 @@ app.post('/verifyuser', function(req, res){
 		console.log(string);
         //this is a walkaround of checking if the email pass combination is 1 or not it will fail if wrong pass is given
         if (string === '[{"COUNT(email)":1}]') {
+        	user=req.body.email;
+        	var token=randtoken.generate(16);
+        	connection.query('UPDATE login SET sid="'+token+'"WHERE email="'+user+'"',function(err,res){
+        		if(err) throw err;
+        		console.log('Session id inserted in database');
+
+        	});
+        	res.cookie('sid' ,token,{maxAge : 600000});
         	res.redirect('/rentPage');
 
         }
@@ -119,7 +158,6 @@ app.post('/verifyuser', function(req, res){
 
         }
     });
-
 
 
 });
