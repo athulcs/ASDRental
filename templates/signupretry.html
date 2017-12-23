@@ -15,10 +15,9 @@
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/animate.css" rel="stylesheet">
     <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet" type="text/css"/>
-    <link href="css/layout.min.css" rel="stylesheet" type="text/css"/>
+    <link href="css/layout.css" rel="stylesheet" type="text/css"/>
     <link rel="shortcut icon" href="favicon.ico"/>
     <link href="https://fonts.googleapis.com/css?family=Syncopate" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" href="http://icons.iconarchive.com/icons/elegantthemes/beautiful-flat-one-color/32/car-icon.png"/>
 </head>
 <body>
@@ -40,8 +39,8 @@
         </div>
 
         <div class="collapse navbar-collapse nav-collapse">
-          <div  class="nav navbar-nav navbar-nav-left" style="padding-top:35px;" >
-            <h4 style="color:#b09979;font-weight:900;font-family: 'Syncopate', sans-serif;">CARRENT</h4></div>
+           <div  class="nav navbar-nav navbar-nav-left" style="padding-top:35px;" >
+            <h4 style="color:#b09979;font-weight:700;font-family: 'Syncopate', sans-serif;">CARRENT</h4></div>
 
 					<!--div class="language-switcher">
 					  <ul class="nav-lang">
@@ -49,46 +48,51 @@
 					    <li><a href="#">DE</a></li>
 						<li><a href="#">FR</a></li>
 					  </ul>
-					</div -->
+					</div-->
 
                     <div class="menu-container">
                         <ul class="nav navbar-nav navbar-nav-right">
-                            <li class="js_nav-item nav-item"><a href="/logout" class="nav-item-child nav-item-hover">Logout</a></li>
+                            <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="/">Home</a></li>
 
+                            <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="/signin.html">Login</a></li>
+
+                            <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="/#contact">Contact</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </nav>
     </header>
-                    
-              
     <div class="carousel-inner" role="listbox">
         <div class="item active">
             <img class="img-responsive" src="img/1920x1080/login02.jpg" alt="Slider Image">
             <div class="container">
+                <div class="carousel-centered">
 
-                        <div class="carousel-centered">
-                            <div class="margin-b-40">
-                                <h1 class="carousel-title">Rent/Lend</h1>
-                            </div>
-                            <a href="/rentInput" class="btn-theme btn-theme-sm btn-white-brd text-uppercase"><i class="fa fa-car" aria-hidden="true"></i>    Rent</a>
-                            <a href="/lend" class="btn-theme btn-theme-sm btn-white-brd text-uppercase"><i class="fa fa-car" aria-hidden="true"></i>     Lend</a>
-                        </div>                               
+                 <div class="margin-b-20">
+                    <form class="form-signin col-xs-30" action="/registeruser" method="post"  >
+
+                     <div class="margin-t-60">
+                        
+
+                            <h2 class="email" style="color:#b09979" >Sign Up</h2>
+                            <h3 class="email" style="color:#dd3939" >Email Already Registered!</h3>
+                            <label for="email" class="sr-only" style="color:white" >Email address</label>
+                            <input autocomplete="off" type="email" id="email" name="email" class="form-control" placeholder="Email address" required="" autofocus="">
+                            <label for="pass" class="sr-only" style="color:white">New Password</label>
+                            <input autocomplete="off" type="password" id="pass" class="form-control" name="pass" placeholder="Password" required="" >
+                            <label for="phone" class="sr-only" style="color:white" >Phone No.</label>
+                            <input autocomplete="off" type="phone" id="phone" name="phone" class="form-control" maxlength="10" placeholder="Phone No." required="" autofocus="">
+
+                            <button id="btnSignIn" class="btn btn-lg btn-primary-outline btn-block" type="submit" style="color:#b09979" >Sign Up</button>
+                        </form>
+                    </div>
                 </div>
-             </div>
-        </div>
-    </body>
-<!--div class="carousel-centered">
-                    <form class="form-signin" action="/verifyuser" method="post"  >
-                        <h2 class="email" style="color:#b09979" >Log in</h2>
-                        <label for="email" class="sr-only" style="color:white" >Email address</label>
-                        <input autocomplete="off" type="email" id="email" name="email" class="form-control" placeholder="Email address" required="" autofocus="">
-                        <label for="pass" class="sr-only" style="color:white">New Password</label>
-                        <input autocomplete="off" type="password" id="pass" class="form-control" name="pass" placeholder="Password" required="" >
+            </div>
 
-                        <button id="btnSignIn" class="btn btn-lg btn-primary-outline btn-block" type="submit" style="color:#b09979" >Log in</button>
-                    </form>
-                    
-                    </div-->
-</html>
+        </div>
+    </div>
+    <div class="inner cover">
+
+    </div>
+</body>
