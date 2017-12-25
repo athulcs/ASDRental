@@ -5,6 +5,17 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var randtoken = require('rand-token');
 var bodyParser = require('body-parser');
+
+
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(cookieParser());// For Parsing cookie send from browser
+app.use('/node_modules',  express.static(__dirname + '/node_modules'));
+app.use(express.static('templates'))
+app.use(express.static(path.join(__dirname, 'templates/css')));
+
+app.set('view engine', 'ejs');
+
 var connection = mysql.createConnection({
 
 	host     : 'localhost',
@@ -13,53 +24,49 @@ var connection = mysql.createConnection({
   database : 'carrent'
 });
 
-app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(cookieParser());
-
 var obj = [];
 var vid;
 var user;
 
+//SESSION CHECK FUNCTION
+function sessionCheck(checktoken,callback) {
+	var selectString='SELECT COUNT(email) FROM login WHERE email="'+user+'" AND sid="'+checktoken+'" ';
+	connection.query(selectString, function(err, results) {
+		string=JSON.stringify(results);
+		console.log(string);
+		if(err)
+			callback(err,null);
+		else if(string === '[{"COUNT(email)":1}]'){
+			callback(null,1);
+		}
+		else{
+			callback(null,0);
+		}
+
+	});
+}
+
 app.listen(3000,function(req,res){
 	console.log('Node server running @ http://localhost:3000');
-	 /*connection.query('SELECT * FROM car', function(err, result) {
-
-        if(err){
-            throw err;
-        } else {
-            obj = JSON.parse(JSON.stringify(result));
-            console.log(obj);
-           res.render('Car', { obj: obj });
-       }*/
-   // });
 });
 
-app.use('/node_modules',  express.static(__dirname + '/node_modules'));
-//app.use('/templates/css',  express.static(__dirname + '/templates/css'));
-app.use(express.static('templates'))
-app.use(express.static(path.join(__dirname, 'templates/css')));
+
 app.get('/',function(req,res){
 	res.sendFile('index.html',{'root': __dirname + '/templates'});
 
 });
+
 app.get('/rentPage',function(req,res){
 
-	var selectString='SELECT COUNT(email) FROM login WHERE email="'+user+'" AND sid="'+req.cookies.sid+'" ';
-	connection.query(selectString, function(err, results) {
-
-       
-        string=JSON.stringify(results);
-        //this is a walkaround of checking if the email pass combination is 1 or not it will fail if wrong pass is given
-        if (string === '[{"COUNT(email)":1}]') {
-        	res.sendFile('profile.html',{'root': __dirname + '/templates'});
-        }
-        else {
-        	res.sendFile('session.html',{'root': __dirname + '/templates'});
-        }
-        
-    });
-
+	sessionCheck(req.cookies.sid,function(err,data){
+		if(err){
+			console.log("ERROR : ",err);
+		}
+		else if(data)
+			res.sendFile('profile.html',{'root': __dirname + '/templates'});	
+		else
+			res.sendFile('session.html',{'root': __dirname + '/templates'});
+	});
 	
 });
 
@@ -70,61 +77,44 @@ app.get('/showSignInPageretry',function(req,res){
 
 app.get('/rentInput',function(req,res){
 
-	var selectString='SELECT COUNT(email) FROM login WHERE email="'+user+'" AND sid="'+req.cookies.sid+'" ';
-	connection.query(selectString, function(err, results) {
-
-       
-        string=JSON.stringify(results);
-        //this is a walkaround of checking if the email pass combination is 1 or not it will fail if wrong pass is given
-        if (string === '[{"COUNT(email)":1}]') {
-        	res.sendFile('rentinput.html',{'root': __dirname + '/templates'});
-        }
-        else {
-        	res.sendFile('session.html',{'root': __dirname + '/templates'});
-        }
-        
-    });
-
+	sessionCheck(req.cookies.sid,function(err,data){
+		if(err){
+			console.log("ERROR : ",err);
+		}
+		else if(data)
+			res.sendFile('rentinput.html',{'root': __dirname + '/templates'});	
+		else
+			res.sendFile('session.html',{'root': __dirname + '/templates'});
+	});
 	
 });
 
 app.get('/lend',function(req,res){
-	console.log(req.cookies);
-	var selectString='SELECT COUNT(email) FROM login WHERE email="'+user+'" AND sid="'+req.cookies.sid+'" ';
-	connection.query(selectString, function(err, results) {
 
-       
-        string=JSON.stringify(results);
-        //this is a walkaround of checking if the email pass combination is 1 or not it will fail if wrong pass is given
-        if (string === '[{"COUNT(email)":1}]') {
-        	res.sendFile('lendinput.html',{'root': __dirname + '/templates'});
-        }
-        else {
-        	res.sendFile('session.html',{'root': __dirname + '/templates'});
-        }
-        
-    });
+	sessionCheck(req.cookies.sid,function(err,data){
+		if(err){
+			console.log("ERROR : ",err);
+		}
+		else if(data)
+			res.sendFile('lendinput.html',{'root': __dirname + '/templates'});	
+		else
+			res.sendFile('session.html',{'root': __dirname + '/templates'});
+	});
 
 	
 });
 
 app.get('/lendsubmit',function(req,res){
 
-	var selectString='SELECT COUNT(email) FROM login WHERE email="'+user+'" AND sid="'+req.cookies.sid+'" ';
-	connection.query(selectString, function(err, results) {
-
-       
-        string=JSON.stringify(results);
-        //this is a walkaround of checking if the email pass combination is 1 or not it will fail if wrong pass is given
-        if (string === '[{"COUNT(email)":1}]') {
-        	res.sendFile('lendsubmit.html',{'root': __dirname + '/templates'});
-        }
-        else {
-        	res.sendFile('session.html',{'root': __dirname + '/templates'});
-        }
-        
-    });
-
+	sessionCheck(req.cookies.sid,function(err,data){
+		if(err){
+			console.log("ERROR : ",err);
+		}
+		else if(data)
+			res.sendFile('lendsubmit.html',{'root': __dirname + '/templates'});
+		else
+			res.sendFile('session.html',{'root': __dirname + '/templates'});
+	});
 	
 });
 
@@ -145,6 +135,30 @@ app.get('/logout',function(req,res){
 
 	});
 	res.redirect('/');
+});
+
+app.get('/carDetails', function(req, res){
+
+	sessionCheck(req.cookies.sid,function(err,data){
+		if(err){
+			console.log("ERROR : ",err);
+		}
+		else if(data){
+			connection.query('SELECT * FROM Car', function(err, result) {
+				if(err){
+					throw err;
+				} 
+				else {
+					obj = JSON.parse(JSON.stringify(result));
+					console.log(obj);
+					res.render('rent', { obj: obj });
+				}
+			});
+		}	
+		else
+			res.sendFile('session.html',{'root': __dirname + '/templates'});
+	});
+
 });
 
 app.post('/registeruser', function(req, res){
@@ -169,7 +183,7 @@ app.post('/registeruser', function(req, res){
         	res.redirect('/rentPage');
 
         }
-       
+
         else   {
 
         	res.redirect('/signupretry');
@@ -178,7 +192,6 @@ app.post('/registeruser', function(req, res){
 
 
 });
-
 
 app.post('/verifyuser', function(req, res){
 
@@ -212,170 +225,80 @@ app.post('/verifyuser', function(req, res){
 
 
 });
-var obj = [];
+
 app.post('/submitRent', function(req,res){
 
-	var selectString='SELECT COUNT(email) FROM login WHERE email="'+user+'" AND sid="'+req.cookies.sid+'" ';
-	connection.query(selectString, function(err, results) {
-
-       
-        string=JSON.stringify(results);
-        //this is a walkaround of checking if the email pass combination is 1 or not it will fail if wrong pass is given
-        if (string === '[{"COUNT(email)":1}]') {
-        	
-	console.log('Rent details input');
-
-	console.log(req.body);
-
-//	console.log(req.body);
-var sel = 'SELECT * FROM Car WHERE Model="'+req.body.Model+'" AND Capacity="'+req.body.Capacity+'" AND Fuel="'+req.body.Fuel+'" AND Trans="'+req.body.Trans+'" ';
-
-
-connection.query(sel, function(err,result){
-	
-	if(err){
-		throw err;
-	} else {
-		obj = JSON.parse(JSON.stringify(result));
-		console.log(obj);
-		res.render('rent', { obj: obj });
-	}
-});
-        }
-        else {
-        	res.sendFile('session.html',{'root': __dirname + '/templates'});
-        }
-        
-    });
+	sessionCheck(req.cookies.sid,function(err,data){
+		if(err){
+			console.log("ERROR : ",err);
+		}
+		else if(data){
+			var sel = 'SELECT * FROM Car WHERE Model="'+req.body.Model+'" AND Capacity="'+req.body.Capacity+'" AND Fuel="'+req.body.Fuel+'" AND Trans="'+req.body.Trans+'" ';
+			connection.query(sel, function(err,result){
+				if(err){
+					throw err;
+				} 
+				else {
+					obj = JSON.parse(JSON.stringify(result));
+					console.log(obj);
+					res.render('rent', { obj: obj });
+				}
+			});
+		}
+		else
+			res.sendFile('session.html',{'root': __dirname + '/templates'});
+	});
 
 
 });
-
-
-
 
 app.post('/lendInput', function(req, res) {
 
-	var selectString='SELECT COUNT(email) FROM login WHERE email="'+user+'" AND sid="'+req.cookies.sid+'" ';
-	connection.query(selectString, function(err, results) {
-
-       
-        string=JSON.stringify(results);
-        //this is a walkaround of checking if the email pass combination is 1 or not it will fail if wrong pass is given
-        if (string === '[{"COUNT(email)":1}]') {
-        		console.log('Lent details input');
-	console.log(req.body);
-	var record = {Name: req.body.name, Email: req.body.email, Phone: req.body.phone, Addr: req.body.addr , VehicleName: req.body.vehiclename , LNo :req.body.licence, Cost:req.body.Cost};
-	
-	var record2 = {Model: req.body.Model, Capacity: req.body.Capacity, Fuel: req.body.Fuel, Trans: req.body.Transmission, Colour: req.body.Colour, Cost: req.body.Cost,LNo :req.body.licence};
-	
-	//connection.connect();
-	connection.query('INSERT INTO car SET ?', record2, function(err,res){
-		if(err) throw err;
-		console.log('Last record insert id:', res.insertId);
-	});
-	
-	
-	connection.query('INSERT INTO lend SET ?', record, function(err,res){
-		if(err) throw err;
-		console.log('Last record insert id:', res.insertId);
-
-	});
-	var sel = 'UPDATE lend SET VID = (SELECT VID FROM Car WHERE LNo="'+req.body.licence+'" ) WHERE LNO="'+req.body.licence+'"';
-	connection.query(sel, function(err, result) {
-
+	sessionCheck(req.cookies.sid,function(err,data){
 		if(err){
-			throw err;
-		} 
-           //res.render('rent', { obj: obj });
-
-       });
-	var sel = 'UPDATE car SET LendID = (SELECT LendID FROM lend WHERE LNo="'+req.body.licence+'" ) WHERE LNO="'+req.body.licence+'"';
-	connection.query(sel, function(err, result) {
-
-		if(err){
-			throw err;
-		} 
-           //res.render('rent', { obj: obj });
-
-       });
-	//connection.query('INSERT INTO lend SET ?', record, function(err,res){
-	  //	if(err) throw err;
-		//console.log('Last record insert id:', res.insertId);
-
-	//});
-	
-	
-	
-	
-
-	res.redirect('/lendsubmit');
-	//connection.end();
-
-	//res.end();
-        }
-        else {
-        	res.sendFile('session.html',{'root': __dirname + '/templates'});
-        }
-        
-    });
-
-
-});
-// **********RENT******
-app.set('view engine', 'ejs');
-
-var obj = [];
-
-app.get('/carDetails', function(req, res){
-
-	var selectString='SELECT COUNT(email) FROM login WHERE email="'+user+'" AND sid="'+req.cookies.sid+'" ';
-	connection.query(selectString, function(err, results) {
-
-       
-        string=JSON.stringify(results);
-        //this is a walkaround of checking if the email pass combination is 1 or not it will fail if wrong pass is given
-        if (string === '[{"COUNT(email)":1}]') {
-        	connection.query('SELECT * FROM Car', function(err, result) {
-
-		if(err){
-			throw err;
-		} else {
-			obj = JSON.parse(JSON.stringify(result));
-			console.log(obj);
-			res.render('rent', { obj: obj });
+			console.log("ERROR : ",err);
 		}
-	});
-        }
-        else {
-        	res.sendFile('session.html',{'root': __dirname + '/templates'});
-        }
-        
-    });
+		else if(data){
+			var record = {Name: req.body.name, Email: req.body.email, Phone: req.body.phone, Addr: req.body.addr , VehicleName: req.body.vehiclename , LNo :req.body.licence, Cost:req.body.Cost};	
+			var record2 = {Model: req.body.Model, Capacity: req.body.Capacity, Fuel: req.body.Fuel, Trans: req.body.Transmission, Colour: req.body.Colour, Cost: req.body.Cost,LNo :req.body.licence};
+			connection.query('INSERT INTO car SET ?', record2, function(err,res){
+				if(err) throw err;
+				console.log('Last record insert id:', res.insertId);
+			});
 
-	
+
+			connection.query('INSERT INTO lend SET ?', record, function(err,res){
+				if(err) throw err;
+				console.log('Last record insert id:', res.insertId);
+
+			});
+			var sel = 'UPDATE lend SET VID = (SELECT VID FROM Car WHERE LNo="'+req.body.licence+'" ) WHERE LNO="'+req.body.licence+'"';
+			connection.query(sel, function(err, result) {
+				if(err){
+					throw err;
+				} 
+
+			});
+			var sel = 'UPDATE car SET LendID = (SELECT LendID FROM lend WHERE LNo="'+req.body.licence+'" ) WHERE LNO="'+req.body.licence+'"';
+			connection.query(sel, function(err, result) {
+				if(err){
+					throw err;
+				} 
+			});
+			res.redirect('/lendsubmit');
+		}
+		else
+			res.sendFile('session.html',{'root': __dirname + '/templates'});
+	});
 });
 
-var hope;
 app.post('/rentTransact', function(req, res){
 
 	var selectString='SELECT COUNT(email) FROM login WHERE email="'+user+'" AND sid="'+req.cookies.sid+'" ';
 	connection.query(selectString, function(err, results) {
-
-       
-        string=JSON.stringify(results);
-        //this is a walkaround of checking if the email pass combination is 1 or not it will fail if wrong pass is given
-        if (string === '[{"COUNT(email)":1}]') {
-        	
-	console.log(req.body);
-	//hope=req.body.vid;
-	//connection.query('SELECT * FROM lend WHERE VID="'+req.body.vid+'"',function(err,result){
-	//		obj = JSON.parse(JSON.stringify(result));
-		    //hope = obj.Cost;
-			//console.log(hope);
-		//    console.log(obj.Cost);
-		
-	//}); 
+		string=JSON.stringify(results);
+        if (string === '[{"COUNT(email)":1}]') {     	
+        	console.log(req.body);
 	vid=req.body.vid;
 	connection.query('SELECT Name,Email,phone,Addr,LNo,VehicleName,VID FROM lend WHERE VID="'+req.body.vid+'"', function(err, result) {
 		
@@ -394,82 +317,60 @@ app.post('/rentTransact', function(req, res){
     });
 	//var sel = 'SELECT Cost FROM car WHERE LNo = (SELECT VID FROM Car WHERE LNo="'+req.body.licence+'" ) WHERE LNO="'+req.body.licence+'"';
 	//connection.query('SELECT Cost FROM car')
-        }
-        else {
-        	res.sendFile('session.html',{'root': __dirname + '/templates'});
-        }
-        
-    });
+}
+else {
+	res.sendFile('session.html',{'root': __dirname + '/templates'});
+}
+
+});
 
 });
 
 var obj2=[];
 app.post('/rentCar', function(req,res){
 
-	var selectString='SELECT COUNT(email) FROM login WHERE email="'+user+'" AND sid="'+req.cookies.sid+'" ';
-	connection.query(selectString, function(err, results) {
-
-       
-        string=JSON.stringify(results);
-        //this is a walkaround of checking if the email pass combination is 1 or not it will fail if wrong pass is given
-        if (string === '[{"COUNT(email)":1}]') {
-        		console.log(req.body);
-   // console.log(hope);
-
-	//console.log(hope*req.body.duration);
-	if(req.body.vid === vid){
-
-		var record = {Name: req.body.name, Email: req.body.email, Phone: req.body.phone, Addr: req.body.addr, Duration: req.body.duration, VID: req.body.vid};
-		connection.query('INSERT into rent SET ?', record, function(err,res){
-			if(err)
-				throw err;
-			
-		});
-	//var sel = 'UPDATE rent SET FCost = (SELECT car.Cost * rent.Duration FROM car,rent WHERE car.VID=rent.VID LNo="'+req.body.licence+'" ) WHERE LNO="'+req.body.licence+'"';
-	connection.query('SELECT (car.Cost * rent.Duration) as FCost FROM car,rent WHERE car.VID=rent.VID AND rent.VID="'+req.body.vid+'"',function(err,result){
-		if(err)
-			throw err;
-		else {
-
-			obj = JSON.parse(JSON.stringify(result).slice(1,-1));            
-			var x = obj.FCost;
-			console.log(x);
-			connection.query('UPDATE rent SET FCost ="'+x+'" WHERE VID="'+req.body.vid+'"', function(err,result){
-				if(err){
-
-					throw(err);
-				}
-			}); 
-
+	sessionCheck(req.cookies.sid,function(err,data){
+		if(err){
+			console.log("ERROR : ",err);
 		}
+		else if(data){
+			console.log(req.body);  		
+			if(req.body.vid === vid){
+				var record = {Name: req.body.name, Email: req.body.email, Phone: req.body.phone, Addr: req.body.addr, Duration: req.body.duration, VID: req.body.vid};
+				connection.query('INSERT into rent SET ?', record, function(err,res){
+					if(err)
+						throw err;			
+				});			
+				connection.query('SELECT (car.Cost * rent.Duration) as FCost FROM car,rent WHERE car.VID=rent.VID AND rent.VID="'+req.body.vid+'"',function(err,result){
+					if(err)
+						throw err;
+					else {
+
+						obj = JSON.parse(JSON.stringify(result).slice(1,-1));            
+						var x = obj.FCost;
+						console.log(x);
+						connection.query('UPDATE rent SET FCost ="'+x+'" WHERE VID="'+req.body.vid+'"', function(err,result){
+							if(err){
+								throw(err);
+							}
+						}); 
+
+					}
+				});
+
+				connection.query('DELETE FROM car WHERE VID ="'+req.body.vid+'"', function(err,res){
+					console.log('running delete query');
+					if(err)
+						throw(err);	
+				});
+				res.sendFile('thenks.html',{'root': __dirname + '/templates'});
+			}
+			else{
+				res.sendFile('noowner.html',{'root': __dirname + '/templates'});
+			}
+		}
+
+		else
+			res.sendFile('session.html',{'root': __dirname + '/templates'});
 	});
-	
-
-
-	connection.query('DELETE FROM car WHERE VID ="'+req.body.vid+'"', function(err,res){
-		console.log('running delete query');
-		if(err)
-			throw(err);
-		
-
-
-		
-	});
-
-	res.sendFile('thenks.html',{'root': __dirname + '/templates'});
-
-}
-else{
-
-	res.sendFile('noowner.html',{'root': __dirname + '/templates'});
-}
-        }
-        else {
-        	res.sendFile('session.html',{'root': __dirname + '/templates'});
-        }
-        
-    });
-	
-
-
 });
