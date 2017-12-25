@@ -5,6 +5,17 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var randtoken = require('rand-token');
 var bodyParser = require('body-parser');
+
+
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(cookieParser());// For Parsing cookie send from browser
+app.use('/node_modules',  express.static(__dirname + '/node_modules'));
+app.use(express.static('templates'))
+app.use(express.static(path.join(__dirname, 'templates/css')));
+
+app.set('view engine', 'ejs');
+
 var connection = mysql.createConnection({
 
 	host     : 'localhost',
@@ -12,10 +23,6 @@ var connection = mysql.createConnection({
   password : 'root',      //Change According to your mysql settings
   database : 'carrent'
 });
-
-app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(cookieParser());
 
 var obj = [];
 var vid;
@@ -43,14 +50,12 @@ app.listen(3000,function(req,res){
 	console.log('Node server running @ http://localhost:3000');
 });
 
-app.use('/node_modules',  express.static(__dirname + '/node_modules'));
-//app.use('/templates/css',  express.static(__dirname + '/templates/css'));
-app.use(express.static('templates'))
-app.use(express.static(path.join(__dirname, 'templates/css')));
+
 app.get('/',function(req,res){
 	res.sendFile('index.html',{'root': __dirname + '/templates'});
 
 });
+
 app.get('/rentPage',function(req,res){
 
 	sessionCheck(req.cookies.sid,function(err,data){
@@ -132,6 +137,30 @@ app.get('/logout',function(req,res){
 	res.redirect('/');
 });
 
+app.get('/carDetails', function(req, res){
+
+	sessionCheck(req.cookies.sid,function(err,data){
+		if(err){
+			console.log("ERROR : ",err);
+		}
+		else if(data){
+			connection.query('SELECT * FROM Car', function(err, result) {
+				if(err){
+					throw err;
+				} 
+				else {
+					obj = JSON.parse(JSON.stringify(result));
+					console.log(obj);
+					res.render('rent', { obj: obj });
+				}
+			});
+		}	
+		else
+			res.sendFile('session.html',{'root': __dirname + '/templates'});
+	});
+
+});
+
 app.post('/registeruser', function(req, res){
 
 	var selectString = 'SELECT COUNT(email) FROM login WHERE email="'+req.body.email+'" ';
@@ -163,7 +192,6 @@ app.post('/registeruser', function(req, res){
 
 
 });
-
 
 app.post('/verifyuser', function(req, res){
 
@@ -197,7 +225,7 @@ app.post('/verifyuser', function(req, res){
 
 
 });
-var obj = [];
+
 app.post('/submitRent', function(req,res){
 
 	sessionCheck(req.cookies.sid,function(err,data){
@@ -223,9 +251,6 @@ app.post('/submitRent', function(req,res){
 
 
 });
-
-
-
 
 app.post('/lendInput', function(req, res) {
 
@@ -266,35 +291,6 @@ app.post('/lendInput', function(req, res) {
 			res.sendFile('session.html',{'root': __dirname + '/templates'});
 	});
 });
-// **********RENT******
-app.set('view engine', 'ejs');
-
-var obj = [];
-
-app.get('/carDetails', function(req, res){
-
-	sessionCheck(req.cookies.sid,function(err,data){
-		if(err){
-			console.log("ERROR : ",err);
-		}
-		else if(data){
-			connection.query('SELECT * FROM Car', function(err, result) {
-				if(err){
-					throw err;
-				} 
-				else {
-					obj = JSON.parse(JSON.stringify(result));
-					console.log(obj);
-					res.render('rent', { obj: obj });
-				}
-			});
-		}	
-		else
-			res.sendFile('session.html',{'root': __dirname + '/templates'});
-	});
-
-});
-
 
 app.post('/rentTransact', function(req, res){
 
